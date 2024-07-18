@@ -1,0 +1,18 @@
+version: 0.2
+phases: 
+  install: 
+    runtime-versions:
+      nodejs: standard:5.0 
+    commands: 
+      - unset CI
+      - yarn 
+
+cache:
+  paths: 
+    - frontend/node_modules
+
+artifacts:
+  files: 
+    - frontend/build
+  base-directory: frontend
+  discard-paths: yes
