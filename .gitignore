@@ -2,3 +2,5 @@ frontend/dist
 out
 *.log
 *.tfvars
+iac/*.tfstate
+iac/.terraform/providers
