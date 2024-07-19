@@ -5,14 +5,17 @@ phases:
       nodejs: standard:5.0 
     commands: 
       - unset CI
+      - cd frontend
       - yarn 
-
+  build: 
+    commands:
+      - yarn build
 cache:
   paths: 
     - frontend/node_modules
 
 artifacts:
   files: 
-    - frontend/build
+    - build/**
   base-directory: frontend
   discard-paths: yes
