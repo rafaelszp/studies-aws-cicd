@@ -18,5 +18,5 @@ artifacts:
   files: 
     - dist/**/*
   base-directory: frontend
-  discard-paths: yes
+  discard-paths: no
   name: frontend-$(date +%Y-%m-%d) 
