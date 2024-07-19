@@ -2,7 +2,7 @@ version: 0.2
 phases: 
   install: 
     runtime-versions:
-      nodejs: standard:5.0 
+      nodejs: 20
     commands: 
       - unset CI
       - cd frontend
