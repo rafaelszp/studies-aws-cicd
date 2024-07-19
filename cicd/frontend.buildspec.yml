@@ -16,7 +16,7 @@ cache:
 
 artifacts:
   files: 
-    - build/**
+    - dist/**
   base-directory: frontend
   discard-paths: yes
   name: frontend-$(date +%Y-%m-%d) 
