@@ -12,3 +12,7 @@ variable "department" {
 variable "cicd_bucket_name" {
   type = string
 }
+
+variable "github_token" {
+  type = string
+}

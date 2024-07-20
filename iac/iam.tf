@@ -13,7 +13,6 @@ data "aws_iam_policy_document" "codebuild_assume_role" {
 
 data "aws_iam_policy_document" "codebuild_policy" {
   statement {
-    sid = "${var.prefix}-CodeBuild-Cache-S3-Policy"
     effect = "Allow"
     actions = [
       "s3:PutObject",
@@ -30,7 +29,6 @@ data "aws_iam_policy_document" "codebuild_policy" {
   }
 
   statement {
-    sid = "${var.prefix}-CodeBuild-Logging-CloudWatch-Policy"
     effect = "Allow"
     actions = [
       "logs:CreateLogGroup",
