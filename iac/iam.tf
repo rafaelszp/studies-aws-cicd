@@ -12,6 +12,7 @@ data "aws_iam_policy_document" "codebuild_assume_role" {
 }
 
 data "aws_iam_policy_document" "codebuild_policy" {
+  policy_id = "CodeBuildPermissions"
   statement {
     effect = "Allow"
     actions = [
@@ -64,6 +65,15 @@ data "aws_iam_policy_document" "codebuild_policy" {
     ]
     resources = [
       "arn:aws:codebuild:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:report-group/${var.prefix}-*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:GenerateDataKey"
+    ]
+    resources = [
+      "${aws_kms_key.kms_bucket_encryption_key.arn}"
     ]
   }
 }
