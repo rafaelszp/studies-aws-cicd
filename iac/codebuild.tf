@@ -48,6 +48,7 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
   logs_config {
     cloudwatch_logs {
       status = "ENABLED"
+      group_name = "/aws/codebuild/${var.department}/${var.prefix}-build"
     }
     s3_logs {
       location = "${aws_s3_bucket.bucket_cicd.bucket}/${var.prefix}-logs"
