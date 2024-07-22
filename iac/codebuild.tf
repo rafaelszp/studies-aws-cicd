@@ -31,10 +31,11 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
   }
 
   source {
-    location = "https://github.com/rafaelszp/studies-aws-cicd.git"
+    # location = "https://github.com/rafaelszp/studies-aws-cicd.git"
     buildspec = "cicd/frontend.buildspec.yml"
-    git_clone_depth = 1
-    type = "GITHUB"
+    # git_clone_depth = 1
+    # type = "GITHUB"
+    type = "${var.cicd_source_type}"
   }
 
   environment {

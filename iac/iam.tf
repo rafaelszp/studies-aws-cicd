@@ -11,6 +11,21 @@ data "aws_iam_policy_document" "codebuild_assume_role" {
   }  
 }
 
+
+data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
+  statement {
+    effect = "Allow"
+    sid = "CodePipelineAssumeRole"
+    principals {
+      type = "Service"
+      identifiers = ["codepipeline.amazonaws.com"]
+    }
+    actions = [
+      "sts:AssumerRole"
+    ]
+  }
+}
+
 data "aws_iam_policy_document" "codebuild_policy" {
   policy_id = "CodeBuildPermissions"
   statement {
@@ -83,7 +98,19 @@ resource "aws_iam_role" "iam_codebuild_role" {
  assume_role_policy = data.aws_iam_policy_document.codebuild_assume_role.json
 }
 
+resource "aws_iam_role" "code_pipeline_role" {
+  name = "${var.prefix}-codepipeline-role"  
+  assume_role_policy = data.aws_iam_policy_document.codepipeline_assume_role_policy.json
+}
+
 resource "aws_iam_role_policy" "iam_codebuild_policy_attach" {
+  name = "CodeBuildInlinePolicy"
   role = aws_iam_role.iam_codebuild_role.id
   policy = data.aws_iam_policy_document.codebuild_policy.json
+}
+
+resource "aws_iam_role_policy" "iam_codepipeline_role_policy" {
+  name = "CodePipelineInlinePolicy"
+  role = aws_iam_role.code_pipeline_role.id
+  policy = templatefile("${path.module}/templates/codepipeline_policy.tpl",{})
 }

@@ -13,6 +13,25 @@ variable "cicd_bucket_name" {
   type = string
 }
 
+
+variable "cicd_source_type" {
+ type = string 
+ default = "CODEPIPELINE"
+ #value = "GITHUB"
+}
+
 variable "github_token" {
+  type = string
+}
+
+variable "github_owner" {
+  type = string
+}
+
+variable "github_repository" {
+ type = string 
+}
+
+variable "github_branch" {
   type = string
 }

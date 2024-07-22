@@ -17,6 +17,18 @@ resource "aws_s3_bucket" "bucket_cicd" {
 resource "aws_kms_key" "kms_bucket_encryption_key" {
   description = "Bucket encryption key for ${var.prefix}"
   deletion_window_in_days = 15
+
+  tags = {
+    TFName     = "kms_bucket_encryption_key"
+    Department = "${var.department}"
+    Application = "${var.prefix}"
+    Name = "CICD Bucket key"
+  }
+}
+
+resource "aws_kms_alias" "kms_bucket_key_alias" {
+  name          = "alias/CICD-Bucket-Key"
+  target_key_id = aws_kms_key.kms_bucket_encryption_key.id
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_cicd_server_encryption" {
