@@ -5,6 +5,7 @@ locals {
 resource "aws_s3_bucket" "bucket_cicd" {
 
   bucket = local.bucket
+  force_destroy = true
 
   tags = {
     TFName     = "bucket_cicd"

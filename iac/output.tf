@@ -3,6 +3,10 @@ output "bucket_cicd_arn" {
   value = aws_s3_bucket.bucket_cicd.arn
 }
 
+output "bucket_cicd_name" {
+  value = aws_s3_bucket.bucket_cicd.bucket
+}
+
 output "account" {
   value = data.aws_caller_identity.current_caller_id
 }
