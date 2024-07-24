@@ -6,7 +6,7 @@ resource "aws_codebuild_source_credential" "github_token_credential" {
 resource "aws_codebuild_project" "codebuild_vite_project" {
 
   name = "${var.prefix}-build"
-  encryption_key = aws_kms_key.kms_bucket_encryption_key.arn
+  # encryption_key = aws_kms_key.kms_bucket_encryption_key.arn
   project_visibility = "PRIVATE"
 
   tags = {
@@ -19,15 +19,19 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
   build_timeout = 5
   service_role = aws_iam_role.iam_codebuild_role.arn
 
+  # artifacts {
+  #   type = "S3"
+  #   location = aws_s3_bucket.bucket_cicd.bucket
+  #   name = var.prefix
+  # }
+
   artifacts {
-    type = "S3"
-    location = aws_s3_bucket.bucket_cicd.bucket
-    name = var.prefix
+    type = "CODEPIPELINE"
   }
 
   cache {
     type = "S3"
-    location = "${aws_s3_bucket.bucket_cicd.bucket}/${var.prefix}"
+    location = "${aws_s3_bucket.bucket_cicd.bucket}/${var.prefix}-buildcache"
   }
 
   source {
@@ -61,17 +65,17 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
 }
 
 
-resource "aws_codebuild_webhook" "codebuild_vite_project_webook_filter" {
- project_name = aws_codebuild_project.codebuild_vite_project.name
- build_type = "BUILD" 
- filter_group {
-   filter {
-     type = "EVENT"
-     pattern = "PUSH"
-   }
-   filter {
-     type = "FILE_PATH"
-     pattern = "^frontend/.*"
-   }
- }
-}
+# resource "aws_codebuild_webhook" "codebuild_vite_project_webook_filter" {
+#  project_name = aws_codebuild_project.codebuild_vite_project.name
+#  build_type = "BUILD" 
+#  filter_group {
+#    filter {
+#      type = "EVENT"
+#      pattern = "PUSH"
+#    }
+#    filter {
+#      type = "FILE_PATH"
+#      pattern = "^frontend/.*"
+#    }
+#  }
+# }

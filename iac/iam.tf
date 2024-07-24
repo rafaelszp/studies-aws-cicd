@@ -13,17 +13,16 @@ data "aws_iam_policy_document" "codebuild_assume_role" {
 
 
 data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
-  statement {
+  statement{
     effect = "Allow"
-    sid = "CodePipelineAssumeRole"
     principals {
       type = "Service"
       identifiers = ["codepipeline.amazonaws.com"]
     }
     actions = [
-      "sts:AssumerRole"
+      "sts:AssumeRole"
     ]
-  }
+  }  
 }
 
 data "aws_iam_policy_document" "codebuild_policy" {
@@ -82,15 +81,15 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "arn:aws:codebuild:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:report-group/${var.prefix}-*"
     ]
   }
-  statement {
-    effect = "Allow"
-    actions = [
-      "kms:GenerateDataKey"
-    ]
-    resources = [
-      "${aws_kms_key.kms_bucket_encryption_key.arn}"
-    ]
-  }
+  # statement {
+  #   effect = "Allow"
+  #   actions = [
+  #     "kms:GenerateDataKey"
+  #   ]
+  #   resources = [
+  #     "${aws_kms_key.kms_bucket_encryption_key.arn}"
+  #   ]
+  # }
 }
 
 resource "aws_iam_role" "iam_codebuild_role" {

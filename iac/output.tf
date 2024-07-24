@@ -19,6 +19,6 @@ output "cloudwatch_log_group" {
   value = aws_cloudwatch_log_group.log_group_codebuild.name
 }
 
-output "kms_key_arn" {
-  value = aws_kms_key.kms_bucket_encryption_key.arn
-}
+# output "kms_key_arn" {
+#   value = aws_kms_key.kms_bucket_encryption_key.arn
+# }
