@@ -15,7 +15,7 @@ resource "aws_codepipeline" "pipeline_vite_example" {
       source_action_name = "Source"
       push {
         branches {
-          includes = ["master"]
+          includes = ["master","main"]
           excludes = ["dev-.*"]
         }
         file_paths {
