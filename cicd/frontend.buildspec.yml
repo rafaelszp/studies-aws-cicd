@@ -12,7 +12,7 @@ phases:
       - yarn build
 cache:
   paths: 
-    - frontend/node_modules
+    - frontend/node_modules/**/*
 
 artifacts:
   files: 
