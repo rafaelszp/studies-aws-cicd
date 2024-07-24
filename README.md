@@ -1,18 +1,18 @@
 # studies-aws-cicd
 
 
-##
+## TODO
 
-```
- Warning: The CodePipeline GitHub version 1 action provider is deprecated.
-│ 
-│   with aws_codepipeline.pipeline_vite_example,
-│   on codepipeline.tf line 18, in resource "aws_codepipeline" "pipeline_vite_example":
-│   18:       provider = "GitHub"
-│ 
-│ Use a GitHub version 2 action (with a CodeStar Connection `aws_codestarconnections_connection`) instead. See
-│ https://docs.aws.amazon.com/codepipeline/latest/userguide/update-github-action-connections.html
-```
+1. s3 lifecycle
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration
+
+2. utilizar as chaves de encriptação padrão do kms
+
+3. utilizar code artifact
+
+4. build de imagem docker
+
+5.  deploy da imagem no ECR
 
 ## Destroying
 
