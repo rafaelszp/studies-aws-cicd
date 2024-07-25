@@ -3,11 +3,14 @@
 
 ## TODO
 
-3. utilizar code artifact
+1. Fazer o buildspec de deploy (no forno)
+2. Criar projeto no codebuild para deploy (no forno)
+3. Associar projeto codebuild na pipeline
+4. utilizar code artifact
 
-4. build de imagem docker
+5. build de imagem docker
 
-5.  deploy da imagem no ECR
+6.  deploy da imagem no ECR
 
 ## Destroying
 

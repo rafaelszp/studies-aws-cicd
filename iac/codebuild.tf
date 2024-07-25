@@ -57,7 +57,7 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
       group_name = "/aws/codebuild/${var.department}/${var.prefix}-build"
     }
     s3_logs {
-      location = "${aws_s3_bucket.bucket_cicd.bucket}/${var.prefix}-logs"
+      location = "${aws_s3_bucket.bucket_cicd.bucket}/${var.prefix}-logs/build"
       status = "ENABLED"
       encryption_disabled = false
     }
@@ -80,3 +80,59 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
 #    }
 #  }
 # }
+
+
+##### DEPLOY
+resource "aws_codebuild_project" "codebuild_vite_deploy" {
+  name  = "${var.prefix}-deploy"
+  encryption_key = data.aws_kms_key.s3_kms_key.arn
+  source {
+    type = "CODEPIPELINE"
+    buildspec = "cicd/deploy.buildspec.yml"
+  }
+  project_visibility = "PRIVATE"
+
+  tags = {
+    TFName     = "codebuild_vite_deploy"
+    Department = "${var.department}"
+    Application = "${var.prefix}"
+  }
+  
+  description = "Deploy project for ${var.prefix}"
+  build_timeout = 5
+  service_role = aws_iam_role.iam_codebuild_role.arn
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+  environment {
+    compute_type = "BUILD_GENERAL1_SMALL"
+    image = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+    image_pull_credentials_type = "CODEBUILD"
+    privileged_mode = false
+    type = "LINUX_CONTAINER"
+
+    environment_variable {
+      name = "BUCKET_URL"
+      value = "s3://${aws_s3_bucket.bucket_cicd.bucket}" 
+    }
+
+    environment_variable {
+      name = "PROJECT_NAME"
+      value = "${var.prefix}"
+    }
+  }
+
+  logs_config {
+    cloudwatch_logs {
+      status = "ENABLED"
+      group_name = "/aws/codebuild/${var.department}/${var.prefix}-deploy"
+    }
+    s3_logs {
+      location = "${aws_s3_bucket.bucket_cicd.bucket}/${var.prefix}-logs/deploy"
+      status = "ENABLED"
+      encryption_disabled = false
+    }
+  }
+
+}

@@ -1,0 +1,11 @@
+version: 0.2
+phases: 
+  install: 
+    commands: 
+      - unset CI
+      - ls -la
+  build: 
+    commands:
+      - echo "deploying to s3"
+      - echo " aws s3 cp ../README.md $BUCKET_URL/${PROJECT_NAME}/$CODEBUILD_SOURCE_VERSION"
+
