@@ -7,6 +7,7 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
 
   name = "${var.prefix}-build"
   # encryption_key = aws_kms_key.kms_bucket_encryption_key.arn
+  encryption_key = data.aws_kms_key.s3_kms_key.arn
   project_visibility = "PRIVATE"
 
   tags = {

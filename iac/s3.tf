@@ -60,12 +60,12 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket_cicd_lifecycle" {
     }
 
     transition {
-      days = 15 #after 30 days the storage class will be changed
-      storage_class = "GLACIER_IR"
+      days = 31 #after 15 days the storage class will be changed
+      storage_class = "STANDARD_IA"
     }
 
     transition {
-      days = 90 #after 90 days the storage class will be changed
+      days = 91 #after 90 days the storage class will be changed
       storage_class = "DEEP_ARCHIVE"
     }
   }
@@ -90,6 +90,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket_cicd_lifecycle" {
 #   target_key_id = aws_kms_key.kms_bucket_encryption_key.id
 # }
 
+data "aws_kms_key" "s3_kms_key" {
+  key_id = "alias/aws/s3"
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_cicd_server_encryption" {
   bucket = aws_s3_bucket.bucket_cicd.id
   # rule {
@@ -98,10 +102,17 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_cicd_serve
   #     kms_master_key_id = aws_kms_key.kms_bucket_encryption_key.arn
   #   }
   # }
+  # rule {
+  #   apply_server_side_encryption_by_default {
+  #     sse_algorithm = "AES256"
+  #   }
+  # }
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm = "aws:kms"
+      kms_master_key_id = data.aws_kms_key.s3_kms_key.arn
     }
+    bucket_key_enabled = true
   }
 }
 
