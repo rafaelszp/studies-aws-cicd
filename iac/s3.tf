@@ -15,6 +15,64 @@ resource "aws_s3_bucket" "bucket_cicd" {
 
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "bucket_cicd_lifecycle" {
+
+  bucket = aws_s3_bucket.bucket_cicd.id
+
+  rule {
+    id = "${var.prefix}-build-log"
+    status = "Enabled"
+    expiration {
+      days = 30
+    }
+    filter {
+     prefix = "${var.prefix}-logs/"
+    }
+  }
+
+  rule {
+    id = "${var.prefix}-build-cache"
+    status = "Enabled"
+    expiration {
+      days = 365
+    }
+    filter {
+     prefix = "${var.prefix}-buildcache/"
+    }
+  }
+
+  rule {
+    id = "${var.prefix}-pip"
+    status = "Enabled"
+    expiration {
+      days = 15
+    }
+    filter {
+     prefix = "${var.prefix}-pip/"
+    }
+  }
+
+  rule {
+    id = "${var.prefix}/"
+    status = "Enabled"
+    filter {
+     prefix = "${var.prefix}/"
+    }
+
+    transition {
+      days = 15 #after 30 days the storage class will be changed
+      storage_class = "GLACIER_IR"
+    }
+
+    transition {
+      days = 90 #after 90 days the storage class will be changed
+      storage_class = "DEEP_ARCHIVE"
+    }
+  }
+
+
+}
+
 # resource "aws_kms_key" "kms_bucket_encryption_key" {
 #   description = "Bucket encryption key for ${var.prefix}"
 #   deletion_window_in_days = 15
