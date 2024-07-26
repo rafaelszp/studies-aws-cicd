@@ -81,6 +81,7 @@ resource "aws_codepipeline" "pipeline_vite_example" {
       output_artifacts = ["deploy_to_s3_output"]
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_vite_deploy.name
+        PrimarySource = "Source"
       }
     }
   }

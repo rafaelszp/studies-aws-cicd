@@ -99,6 +99,12 @@ resource "aws_codebuild_project" "codebuild_vite_deploy" {
     buildspec = "cicd/deploy-to-s3.buildspec.yml"
   }
 
+  secondary_artifacts {
+    type = "GITHUB" 
+    location = "https://github.com/${var.github_owner}/${var.github_repository}"
+    artifact_identifier = "GITHUB_SOURCE"
+  }
+
   tags = {
     TFName     = "codebuild_vite_deploy"
     Department = "${var.department}"
