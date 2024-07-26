@@ -68,4 +68,27 @@ resource "aws_codepipeline" "pipeline_vite_example" {
     }
   }
 
+  stage {
+    name = "Deploy"
+
+    action {
+      name = "DeployToS3"
+      category = "Build"
+      owner = "AWS"
+      provider = "CodeBuild"
+      version = "1"
+      input_artifacts = ["build_output"]
+      output_artifacts = ["deploy_to_s3_output"]
+      configuration = {
+        ProjectName = aws_codebuild_project.codebuild_vite_deploy.name
+      }
+    }
+  }
+
+  tags = {
+    TFName     = "pipeline_vite_example"
+    Department = "${var.department}"
+    Application = "${var.prefix}"
+  }
+
 }
