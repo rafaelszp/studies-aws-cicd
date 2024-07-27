@@ -53,7 +53,7 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
 
     environment_variable {
       name = "NPM_REPOSITORY_URL"
-      value = "${aws_codeartifact_domain.nodejs_artifact_domain.domain}-${aws_codeartifact_domain.nodejs_artifact_domain.owner}.d.codeartifact.${data.aws_region.region.name}.amazonaws.com/npm/${aws.aws_codeartifact_repository.repository}"
+      value = "${aws_codeartifact_domain.nodejs_artifact_domain.domain}-${aws_codeartifact_domain.nodejs_artifact_domain.owner}.d.codeartifact.${data.aws_region.region.name}.amazonaws.com/npm/${aws_codeartifact_repository.node_artifact_repo.repository}"
     }
 
     environment_variable {
