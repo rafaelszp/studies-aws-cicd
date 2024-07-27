@@ -45,7 +45,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket_cicd_lifecycle" {
     id = "${var.prefix}-pip"
     status = "Enabled"
     expiration {
-      days = 15
+      days = 3
     }
     filter {
      prefix = "${var.prefix}-pip/"
