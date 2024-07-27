@@ -3,8 +3,7 @@ data "aws_kms_key" "codeartifact_kms_key" {
 }
 
 resource "aws_codeartifact_domain" "nodejs_artifact_domain" {
-  domain = "${var.prefix}-nodejs"
-  encryption_key = data.aws_kms_key.s3_kms_key.arn
+  domain = "${var.department}-nodejs"
 }
 
 resource "aws_codeartifact_repository" "node_artifact_repo" {
