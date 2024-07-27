@@ -8,6 +8,6 @@ phases:
     commands:
       - echo "deploying to s3 $BUCKET_URL"
       - | 
-        DEPLOY_DIR=`echo $CODEBUILD_SOURCE_VERSION | tr ':' '_'`
+        DEPLOY_DIR=`echo CODEBUILD_BUILD_ID | tr ':' '_'`
         aws s3 cp dist $BUCKET_URL/$PROJECT_NAME/$DEPLOY_DIR/ --recursive
 
