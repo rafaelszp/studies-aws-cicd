@@ -7,5 +7,6 @@ phases:
   build: 
     commands:
       - echo "deploying to s3"
-      - echo " aws s3 cp ../README.md $BUCKET_URL/${PROJECT_NAME}/$CODEBUILD_SOURCE_VERSION"
+      - export DEPLOY_DIR=`echo $CODEBUILD_SOURCE_VERSION | tr ':' '_'`
+      - aws s3 cp ../README.md $BUCKET_URL/${PROJECT_NAME}/$DEPLOY_DIR
 

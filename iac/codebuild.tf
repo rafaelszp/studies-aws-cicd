@@ -96,13 +96,13 @@ resource "aws_codebuild_project" "codebuild_vite_deploy" {
 
   source {
     type = "CODEPIPELINE"
-    buildspec = "cicd/deploy-to-s3.buildspec.yml"
+    buildspec = "../github.com/${var.github_owner}/${var.github_repository}/cicd/deploy-to-s3.buildspec.yml"
   }
 
-  secondary_artifacts {
+  secondary_sources {
     type = "GITHUB" 
     location = "https://github.com/${var.github_owner}/${var.github_repository}"
-    artifact_identifier = "GITHUB_SOURCE"
+    source_identifier = "GITHUB_SRC"
   }
 
   tags = {
