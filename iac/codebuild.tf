@@ -3,6 +3,7 @@ resource "aws_codebuild_source_credential" "github_token_credential" {
   server_type = "GITHUB"
   token       = "${var.github_token}"
 }
+
 resource "aws_codebuild_project" "codebuild_vite_project" {
 
   name = "${var.prefix}-build"
@@ -49,7 +50,27 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode = false
     type = "LINUX_CONTAINER"
+
+    environment_variable {
+      name = "NPM_REPOSITORY_URL"
+      value = "${aws_codeartifact_domain.nodejs_artifact_domain.domain}-${aws_codeartifact_domain.nodejs_artifact_domain.owner}.d.codeartifact.${data.aws_region.region.name}.amazonaws.com/npm/${aws.aws_codeartifact_repository.repository}"
+    }
+
+    environment_variable {
+      name = "NPM_REPOSITORY_OWNER"
+      value = "${aws_codeartifact_domain.nodejs_artifact_domain.owner}"
+    }
+    environment_variable {
+      name = "NPM_REPOSITORY_DOMAIN"
+      value = "${aws_codeartifact_domain.nodejs_artifact_domain.domain}"
+    }
+
+    environment_variable {
+      name = "NPM_REPOSITORY_REGION"
+      value = "${data.aws_region.region.name}"
+    }
   }
+
 
   logs_config {
     cloudwatch_logs {

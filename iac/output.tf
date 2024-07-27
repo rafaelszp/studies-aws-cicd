@@ -28,3 +28,11 @@ output "log_group_deploy" {
 output "kms_key_arn" {
   value = data.aws_kms_key.s3_kms_key.arn
 }
+
+output "repository_domain" {
+  value = aws_codeartifact_domain.nodejs_artifact_domain
+}
+
+output "repository_nodejs" {
+  value = aws_codeartifact_repository.node_artifact_repo
+}

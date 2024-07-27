@@ -6,6 +6,11 @@ phases:
     commands: 
       - unset CI
       - cd frontend
+      - |
+        yarn config set npmRegistryServer "$NPM_REPOSITORY_URL"
+        export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $NPM_REPOSITORY_DOMAIN --domain-owner $NPM_REPOSITORY_OWNER --region $NPM_REPOSITORY_REGION --query authorizationToken --output text`
+        yarn config set "npmRegistries[\"$NPM_REPOSITORY_URL\"].npmAuthToken" "${CODEARTIFACT_AUTH_TOKEN}"
+        yarn config set "npmRegistries[\"$NPM_REPOSITORY_URL\"].npmAlwaysAuth" "true"
       - yarn  --prefer-offline
   build: 
     commands:

@@ -9,4 +9,7 @@ resource "aws_codeartifact_domain" "nodejs_artifact_domain" {
 resource "aws_codeartifact_repository" "node_artifact_repo" {
   domain = aws_codeartifact_domain.nodejs_artifact_domain.domain
   repository = "nodejs"
+  external_connections {
+    external_connection_name = "public:npmjs"
+  }
 }
