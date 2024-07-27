@@ -96,7 +96,7 @@ resource "aws_codebuild_project" "codebuild_vite_deploy" {
 
   source {
     type = "CODEPIPELINE"
-    buildspec = "../github.com/${var.github_owner}/${var.github_repository}/cicd/deploy-to-s3.buildspec.yml"
+    buildspec = "../../github.com/${var.github_owner}/${var.github_repository}/cicd/deploy-to-s3.buildspec.yml"
   }
 
   secondary_sources {

@@ -6,6 +6,7 @@ phases:
       - ls -la
   build: 
     commands:
+      - pwd
       - echo "deploying to s3 $BUCKET_URL"
       - | 
         DEPLOY_DIR=`echo CODEBUILD_BUILD_ID | tr ':' '_'`
