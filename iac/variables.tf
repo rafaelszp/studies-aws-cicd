@@ -9,6 +9,12 @@ variable "department" {
   type = string
 }
 
+
+variable "cloudwatch_retention_days" {
+  type = number
+  default = 7
+}
+
 variable "cicd_bucket_name" {
   type = string
 }

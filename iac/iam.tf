@@ -1,30 +1,29 @@
 data "aws_iam_policy_document" "codebuild_assume_role" {
-  statement{
+  statement {
     effect = "Allow"
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["codebuild.amazonaws.com"]
     }
     actions = [
       "sts:AssumeRole"
     ]
-  }  
+  }
 }
 
 
 data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
-  statement{
+  statement {
     effect = "Allow"
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["codepipeline.amazonaws.com"]
     }
     actions = [
       "sts:AssumeRole"
     ]
-  }  
+  }
 }
-
 data "aws_iam_policy_document" "codebuild_policy" {
   policy_id = "CodeBuildPermissions"
   statement {
@@ -83,6 +82,48 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "arn:aws:codebuild:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:report-group/${var.prefix}-*"
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "codeartifact:GetAuthorizationToken",
+      "codeartifact:DescribePackageVersion",
+      "codeartifact:DescribeRepository",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:GetRepositoryEndpoint",
+      "codeartifact:ListPackages",
+      "codeartifact:ListPackageVersions",
+      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:ListPackageVersionDependencies",
+      "codeartifact:ReadFromRepository",
+      "codeartifact:PublishPackageVersion",
+      "codeartifact:PutPackageMetadata",
+      "codeartifact:UpdatePackageGroup",
+      "codeartifact:UpdatePackageVersionsStatus",
+      "codeartifact:UpdateRepository",
+      "codeartifact:DisposePackageVersions",
+      "codeartifact:DeletePackageGroup",
+      "codeartifact:CreatePackageGroup"
+    ]
+    resources = [
+      "arn:aws:codeartifact:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:domain/${aws_codeartifact_domain.nodejs_artifact_domain.domain}"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "sts:GetServiceBearerToken"
+    ]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "sts:AWSServiceName"
+      values = [
+        "codeartifact.amazonaws.com",
+        "codebuild.amazonaws.com",
+        "codepipeline.amazonaws.com",
+      ]
+    }
+  }
   # statement {
   #   effect = "Allow"
   #   actions = [
@@ -95,23 +136,23 @@ data "aws_iam_policy_document" "codebuild_policy" {
 }
 
 resource "aws_iam_role" "iam_codebuild_role" {
- name = "${var.prefix}-codebuild_role" 
- assume_role_policy = data.aws_iam_policy_document.codebuild_assume_role.json
+  name               = "${var.prefix}-codebuild_role"
+  assume_role_policy = data.aws_iam_policy_document.codebuild_assume_role.json
 }
 
 resource "aws_iam_role" "code_pipeline_role" {
-  name = "${var.prefix}-codepipeline-role"  
+  name               = "${var.prefix}-codepipeline-role"
   assume_role_policy = data.aws_iam_policy_document.codepipeline_assume_role_policy.json
 }
 
 resource "aws_iam_role_policy" "iam_codebuild_policy_attach" {
-  name = "CodeBuildInlinePolicy"
-  role = aws_iam_role.iam_codebuild_role.id
+  name   = "CodeBuildInlinePolicy"
+  role   = aws_iam_role.iam_codebuild_role.id
   policy = data.aws_iam_policy_document.codebuild_policy.json
 }
 
 resource "aws_iam_role_policy" "iam_codepipeline_role_policy" {
-  name = "CodePipelineInlinePolicy"
-  role = aws_iam_role.code_pipeline_role.id
-  policy = templatefile("${path.module}/templates/codepipeline_policy.tpl",{})
+  name   = "CodePipelineInlinePolicy"
+  role   = aws_iam_role.code_pipeline_role.id
+  policy = templatefile("${path.module}/templates/codepipeline_policy.tpl", {})
 }

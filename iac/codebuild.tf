@@ -57,6 +57,11 @@ resource "aws_codebuild_project" "codebuild_vite_project" {
     }
 
     environment_variable {
+      name = "NPM_REPOSITORY_NAME"
+      value = "${aws_codeartifact_repository.node_artifact_repo.repository}"
+    }
+
+    environment_variable {
       name = "NPM_REPOSITORY_OWNER"
       value = "${aws_codeartifact_domain.nodejs_artifact_domain.owner}"
     }
