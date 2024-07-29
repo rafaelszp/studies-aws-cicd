@@ -82,6 +82,7 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "arn:aws:codebuild:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:report-group/${var.prefix}-*"
     ]
   }
+
   statement {
     effect = "Allow"
     actions = [
@@ -105,7 +106,8 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "codeartifact:CreatePackageGroup"
     ]
     resources = [
-      "arn:aws:codeartifact:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:domain/${aws_codeartifact_domain.nodejs_artifact_domain.domain}"
+      "arn:aws:codeartifact:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:domain/${aws_codeartifact_domain.nodejs_artifact_domain.domain}",
+      "arn:aws:codeartifact:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:repository/${aws_codeartifact_domain.nodejs_artifact_domain.domain}/*",
     ]
   }
   statement {
