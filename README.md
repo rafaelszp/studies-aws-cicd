@@ -3,14 +3,12 @@
 
 ## TODO
 
-1. Fazer o buildspec de deploy (no forno)
-2. Criar projeto no codebuild para deploy (no forno)
-3. Associar projeto codebuild na pipeline
-4. utilizar code artifact
-
-5. build de imagem docker
-
+1. Tranformar repositorio nodejs em mirror para upstreams
+2. testar build sem remover yarn.ock
+3. adicionar novos upstreams
+4. build de imagem docker
 6.  deploy da imagem no ECR
+7. Criar novo projeto java + quarkus + codeartifact  + ecr
 
 ## Destroying
 
