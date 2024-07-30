@@ -16,8 +16,9 @@ phases:
       - | 
         echo "yarn 1.x"
         aws codeartifact login --tool npm --repository $NPM_REPOSITORY_NAME --domain $NPM_REPOSITORY_DOMAIN --domain-owner $NPM_REPOSITORY_OWNER --region $NPM_REPOSITORY_REGION
-        echo "always-auth=true" >> .npmrc
-        yarn  --prefer-offline
+        yarn config list 
+        npm --version
+        yarn  --prefer-offline --verbose
   build: 
     commands:
       - yarn build
