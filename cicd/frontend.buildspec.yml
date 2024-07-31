@@ -13,9 +13,9 @@ phases:
       #   yarn config set "npmRegistries[\"$NPM_REPOSITORY_URL\"].npmAuthToken" "${CODEARTIFACT_AUTH_TOKEN}"
       #   yarn config set "npmRegistries[\"$NPM_REPOSITORY_URL\"].npmAlwaysAuth" "true"
       #   yarn config list
+      # - rm yarn.lock -fv
       - | 
         echo "yarn 1.x"
-        rm yarn.lock -fv
         yarn config set registry "$NPM_REPOSITORY_URL"
         echo "registry \"$NPM_REPOSITORY_URL\"" >> .yarnrc
         aws codeartifact login --tool npm --repository $NPM_REPOSITORY_NAME --domain $NPM_REPOSITORY_DOMAIN --domain-owner $NPM_REPOSITORY_OWNER --region $NPM_REPOSITORY_REGION
