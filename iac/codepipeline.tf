@@ -19,7 +19,7 @@ resource "aws_codepipeline" "pipeline_vite_example" {
           excludes = ["dev-.*"]
         }
         file_paths {
-          includes = ["frontend/**/*.*","error_pages/**/*"]
+          includes = ["frontend/**/*","error_pages/**/*"]
         }
       }
     }
