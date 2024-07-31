@@ -13,7 +13,7 @@ phases:
       #   yarn config set "npmRegistries[\"$NPM_REPOSITORY_URL\"].npmAuthToken" "${CODEARTIFACT_AUTH_TOKEN}"
       #   yarn config set "npmRegistries[\"$NPM_REPOSITORY_URL\"].npmAlwaysAuth" "true"
       #   yarn config list
-      # - rm yarn.lock -fv
+      - rm yarn.lock -fv
       - | 
         echo "yarn 1.x"
         yarn config set registry "$NPM_REPOSITORY_URL"
