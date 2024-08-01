@@ -36,3 +36,7 @@ output "repository_domain" {
 output "repository_nodejs" {
   value = aws_codeartifact_repository.node_artifact_repo
 }
+
+output "ecr_repository_url" {
+  value = "${aws_ecr_repository.ecr_repo.repository_url}"
+}

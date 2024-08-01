@@ -158,6 +158,11 @@ resource "aws_codebuild_project" "codebuild_vite_deploy" {
       name = "PROJECT_NAME"
       value = "${var.prefix}"
     }
+    environment_variable {
+      name = "FRONTEND_REPOSITORY_URL"
+      # value = "730335591954.dkr.ecr.us-east-2.amazonaws.com/${var.prefix}"
+      value = "${aws_ecr_repository.ecr_repo.repository_url}"
+    }
   }
 
   logs_config {
