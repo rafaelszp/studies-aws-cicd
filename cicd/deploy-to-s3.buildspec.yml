@@ -12,9 +12,9 @@ phases:
         DEPLOY_DIR=`echo $CODEBUILD_BUILD_ID | tr ':' '_'`
         aws s3 cp dist $BUCKET_URL/$PROJECT_NAME/$DEPLOY_DIR/ --recursive
       - | 
-        cd $CODEBUILD_SRC_DIR_GITHUB_SRC 
+        printenv
         export FRONTEND_IMAGE_TAG="$FRONTEND_REPOSITORY_URL:CODEBUILD_SOURCE_VERSION_GITHUB_SRC"
         echo "building tag $FRONTEND_IMAGE_TAG"
-        docker build --tag "$FRONTEND_IMAGE_TAG -f frontend/docker/Dockerfile .
+        docker build --tag "$FRONTEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR_GITHUB_SRC/frontend/docker/Dockerfile .
        
 
