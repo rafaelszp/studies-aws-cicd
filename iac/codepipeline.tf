@@ -40,6 +40,7 @@ resource "aws_codepipeline" "pipeline_vite_example" {
       provider = "CodeStarSourceConnection"
       version = "1"
       output_artifacts = ["source_output"]
+      namespace = "SourceVariables"
 
       configuration = {
         FullRepositoryId = "${var.github_owner}/${var.github_repository}"
@@ -82,7 +83,20 @@ resource "aws_codepipeline" "pipeline_vite_example" {
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_vite_deploy.name
         PrimarySource = "Source"
+        EnvironmentVariables = jsonencode([
+          {
+            name = "GITHUB_COMMIT_ID"
+            value =  "#{SourceVariables.CommitId}"
+            type = "PLAINTEXT"
+          },
+          {
+            name = "GITHUB_BRANCH_NAME"
+            value =  "#{SourceVariables.BranchName}"
+            type = "PLAINTEXT"
+          }
+        ])
       }
+
     }
   }
 

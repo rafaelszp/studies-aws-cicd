@@ -10,7 +10,7 @@ phases:
       - echo "deploying to s3 $BUCKET_URL"
       - | 
         DEPLOY_DIR=`echo $CODEBUILD_BUILD_ID | tr ':' '_'`
-        aws s3 cp dist $BUCKET_URL/$PROJECT_NAME/$DEPLOY_DIR/ --recursive
+        aws s3 cp frontend/dist $BUCKET_URL/$PROJECT_NAME/$DEPLOY_DIR/ --recursive
       - | 
         printenv
         export FRONTEND_IMAGE_TAG="$FRONTEND_REPOSITORY_URL:$GITHUB_BRANCH_NAME"
