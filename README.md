@@ -2,10 +2,9 @@
 
 
 ## TODO
-
-1. build de imagem docker do frontend
+1. Definir IAM para poder fazer deploy no ECR
 2.  deploy da imagem no ECR
-3. Criar novo projeto java + quarkus + codeartifact  + ecr
+3. Criar novo projeto java + quarkus + codeartifact  + ecr + parallel actions
 
 ## Destroying
 
