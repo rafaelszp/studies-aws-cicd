@@ -30,7 +30,7 @@ cache:
 
 artifacts:
   files: 
-    - dist/**/*
-  base-directory: frontend
+    - frontend/dist/**/*
+  # base-directory: frontend
   discard-paths: no
   name: frontend-$(date +%Y-%m-%d) 
