@@ -17,8 +17,3 @@ phases:
       - |
         aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_LOGIN_URL
         docker push $FRONTEND_IMAGE_TAG 
-        docker tag $FRONTEND_IMAGE_TAG "$FRONTEND_IMAGE_TAG:latest"
-        docker push "$FRONTEND_IMAGE_TAG:latest"
-
-       
-

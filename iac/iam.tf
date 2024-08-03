@@ -142,7 +142,8 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "ecr:UploadLayerPart",
       "ecr:BatchGetImage",
       "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchCheckLayerAvailability"
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetAuthorizationToken"
      ]
   }
 
