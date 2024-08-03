@@ -24,6 +24,7 @@ data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
     ]
   }
 }
+
 data "aws_iam_policy_document" "codebuild_policy" {
   policy_id = "CodeBuildPermissions"
   statement {
@@ -126,25 +127,29 @@ data "aws_iam_policy_document" "codebuild_policy" {
       ]
     }
   }
-
   statement {
-    sid = "CodeBuildInlineECRPolicy"
     effect = "Allow"
-    resources = [
-      "${aws_ecr_repository.ecr_repo.arn}",
-      "${aws_ecr_repository.ecr_repo.arn}/*",
-    ]
     actions = [
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:CompleteLayerUpload",
-      "ecr:InitiateLayerUpload",
-      "ecr:PutImage",
-      "ecr:UploadLayerPart",
-      "ecr:BatchGetImage",
+      "ecr:GetAuthorizationToken",
       "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
       "ecr:BatchCheckLayerAvailability",
-      "ecr:GetAuthorizationToken"
-     ]
+      "ecr:PutImage",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+      "ecr:DescribeRepositories",
+      "ecr:GetRepositoryPolicy",
+      "ecr:ListImages",
+      "ecr:DeleteRepository",
+      "ecr:BatchDeleteImage",
+      "ecr:SetRepositoryPolicy",
+      "ecr:DeleteRepositoryPolicy",
+    ]
+    resources = [
+      # "${aws_ecr_repository.ecr_repo.arn}",
+      "*"
+    ]
   }
 
   # statement {
