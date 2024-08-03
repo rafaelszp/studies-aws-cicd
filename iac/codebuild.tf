@@ -163,6 +163,10 @@ resource "aws_codebuild_project" "codebuild_vite_deploy" {
       # value = "730335591954.dkr.ecr.us-east-2.amazonaws.com/${var.prefix}"
       value = "${aws_ecr_repository.ecr_repo.repository_url}"
     }
+    environment_variable {
+      name = "ECR_LOGIN_URL"
+      value = "${data.aws_caller_identity.current_caller_id.account_id}.dkr.ecr.${data.aws_region.region.name}.amazonaws.com"
+    }
   }
 
   logs_config {
