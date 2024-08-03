@@ -126,6 +126,26 @@ data "aws_iam_policy_document" "codebuild_policy" {
       ]
     }
   }
+
+  statement {
+    sid = "CodeBuildInlineECRPolicy"
+    effect = "Allow"
+    resources = [
+      "${aws_ecr_repository.ecr_repo.arn}",
+      "${aws_ecr_repository.ecr_repo.arn}/*",
+    ]
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:CompleteLayerUpload",
+      "ecr:InitiateLayerUpload",
+      "ecr:PutImage",
+      "ecr:UploadLayerPart",
+      "ecr:BatchGetImage",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchCheckLayerAvailability"
+     ]
+  }
+
   # statement {
   #   effect = "Allow"
   #   actions = [
