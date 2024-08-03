@@ -1,0 +1,23 @@
+version: 0.2
+phases: 
+  install: 
+    runtime-versions:
+      java: 21
+    commands: 
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $REPOSITORY_DOMAIN --domain-owner $REPOSITORY_OWNER --region $REPOSITORY_REGION --query authorizationToken --output text`
+      - mkdir backend/maven-cache
+      - mkdir -p ~/.m2/settings.xml
+      - cp backend/settings.xml ~/.m2/settings.xml
+  build: 
+    commands:
+      - cd backend
+      - ./mvnw clean package -Dnative -DskipTests -Dmaven.repo.local=maven-cache -s settings.xml
+cache:
+  paths: 
+    - backend/maven-cache
+
+artifacts:
+  files: 
+    - backend/target
+  discard-paths: no
+  name: backend-$(date +%Y-%m-%d) 

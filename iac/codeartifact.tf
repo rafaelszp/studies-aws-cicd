@@ -37,3 +37,33 @@ resource "aws_codeartifact_repository" "npm_store" {
     Application = "${var.prefix}"
   }
 }
+
+
+
+### Backend
+resource "aws_codeartifact_repository" "maven_artifact_repo" {
+  domain = aws_codeartifact_domain.nodejs_artifact_domain.domain
+  repository = "mvn"
+  upstream {
+   repository_name = aws_codeartifact_repository.maven_central.repository
+  }
+  tags = {
+    TFName     = "_artifact_repo"
+    Department = "${var.department}"
+    Application = "${var.prefix}"
+  }
+}
+
+
+resource "aws_codeartifact_repository" "maven_central" {
+  domain = aws_codeartifact_domain.nodejs_artifact_domain.domain
+  repository = "maven-central"
+  external_connections {
+    external_connection_name = "public:maven-central"
+  }
+  tags = {
+    TFName     = "maven_central"
+    Department = "${var.department}"
+    Application = "${var.prefix}"
+  }
+}
