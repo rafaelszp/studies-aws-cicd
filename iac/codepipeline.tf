@@ -55,17 +55,28 @@ resource "aws_codepipeline" "pipeline_vite_example" {
     name = "Build"
 
     action {
-      name = "Build"
+      name = "FRONTEND-BUILD"
       category = "Build"
       owner = "AWS"
       provider = "CodeBuild"
       version = "1"
       input_artifacts = ["source_output"]
-      output_artifacts = ["build_output"]
+      output_artifacts = ["frontend_build_output"]
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_vite_project.name
       }
-
+    }
+    action {
+      name = "BACKEND-BUILD"
+      category = "Build"
+      owner = "AWS"
+      provider = "CodeBuild"
+      version = "1"
+      input_artifacts = ["source_output"]
+      output_artifacts = ["backend_build_output"]
+      configuration = {
+        ProjectName = aws_codebuild_project.codebuild_backend.name
+      }
     }
   }
 
@@ -78,7 +89,7 @@ resource "aws_codepipeline" "pipeline_vite_example" {
       owner = "AWS"
       provider = "CodeBuild"
       version = "1"
-      input_artifacts = ["build_output"]
+      input_artifacts = ["frontend_build_output","backend_build_output"]
       output_artifacts = ["deploy_to_s3_output"]
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_vite_deploy.name
