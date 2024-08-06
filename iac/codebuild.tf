@@ -120,7 +120,7 @@ resource "aws_codebuild_project" "codebuild_backend" {
   # encryption_key = aws_kms_key.kms_bucket_encryption_key.arn
   encryption_key = data.aws_kms_key.s3_kms_key.arn
   project_visibility = "PRIVATE"
-  build_timeout = 15
+  build_timeout = 60
 
   tags = {
     TFName     = "codebuild_backend"
