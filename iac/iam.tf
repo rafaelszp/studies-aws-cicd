@@ -55,6 +55,8 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "${aws_cloudwatch_log_group.log_group_codebuild.arn}:*",
       "${aws_cloudwatch_log_group.log_group_codebuild_deploy.arn}",
       "${aws_cloudwatch_log_group.log_group_codebuild_deploy.arn}:*",
+      "${aws_cloudwatch_log_group.log_group_codebuild_backend.arn}:*",
+      "${aws_cloudwatch_log_group.log_group_codebuild_backend.arn}",
     ]
   }
   statement {
