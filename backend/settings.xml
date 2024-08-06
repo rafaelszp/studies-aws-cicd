@@ -19,8 +19,8 @@
   </servers>
   <mirrors>
     <mirror>
-      <id>devops-nodejs-maven</id>
-      <name>devops-nodejs-maven</name>
+      <id>${env.REPOSITORY_NAME}</id>
+      <name>${env.REPOSITORY_NAME}</name>
       <url>${env.REPOSITORY_URL}</url>
       <mirrorOf>*</mirrorOf>
     </mirror>
