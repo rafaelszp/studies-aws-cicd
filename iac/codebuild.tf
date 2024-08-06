@@ -160,12 +160,12 @@ resource "aws_codebuild_project" "codebuild_backend" {
 
     environment_variable {
       name = "REPOSITORY_URL"
-      value = "${aws_codeartifact_domain.nodejs_artifact_domain.domain}-${aws_codeartifact_domain.nodejs_artifact_domain.owner}.d.codeartifact.${data.aws_region.region.name}.amazonaws.com/npm/${aws_codeartifact_repository.node_artifact_repo.repository}"
+      value = "https://${aws_codeartifact_domain.nodejs_artifact_domain.domain}-${aws_codeartifact_domain.nodejs_artifact_domain.owner}.d.codeartifact.${data.aws_region.region.name}.amazonaws.com/maven/${aws_codeartifact_repository.maven_artifact_repo.repository}/"
     }
 
     environment_variable {
       name = "REPOSITORY_NAME"
-      value = "${aws_codeartifact_repository.node_artifact_repo.repository}"
+      value = "${aws_codeartifact_repository.maven_artifact_repo.repository}"
     }
 
     environment_variable {

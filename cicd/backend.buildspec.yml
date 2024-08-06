@@ -8,10 +8,11 @@ phases:
       - mkdir backend/maven-cache -p
       - mkdir -p ~/.m2/settings.xml
       - cp backend/settings.xml ~/.m2/settings.xml
+      - printenv
   build: 
     commands:
       - cd backend
-      - ./mvnw clean package -Dnative -DskipTests -Dmaven.repo.local=maven-cache -s settings.xml
+      - .mvnw clean package -Dnative -DskipTests -Dmaven.repo.local=maven-cache -s settings.xml
 cache:
   paths: 
     - backend/maven-cache

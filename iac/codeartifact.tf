@@ -57,7 +57,7 @@ resource "aws_codeartifact_repository" "maven_artifact_repo" {
 
 resource "aws_codeartifact_repository" "maven_central" {
   domain = aws_codeartifact_domain.nodejs_artifact_domain.domain
-  repository = "maven-central"
+  repository = "maven-central-store"
   external_connections {
     external_connection_name = "public:maven-central"
   }
