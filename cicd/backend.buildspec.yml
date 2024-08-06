@@ -5,7 +5,7 @@ phases:
       java: corretto21
     commands: 
       - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $REPOSITORY_DOMAIN --domain-owner $REPOSITORY_OWNER --region $REPOSITORY_REGION --query authorizationToken --output text`
-      - mkdir backend/maven-cache
+      - mkdir backend/maven-cache -p
       - mkdir -p ~/.m2/settings.xml
       - cp backend/settings.xml ~/.m2/settings.xml
   build: 
