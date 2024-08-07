@@ -6,12 +6,11 @@ phases:
     commands: 
       - export MAVEN_OPTS=-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
       - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $REPOSITORY_DOMAIN --domain-owner $REPOSITORY_OWNER --region $REPOSITORY_REGION --query authorizationToken --output text`
-      - mkdir -p ~/.m2/settings.xml
       - cp backend/settings.xml /root/.m2/settings.xml
   build: 
     commands:
       - cd backend
-      - mvn clean package -Dnative -DskipTests -s settings.xml --batch-mode
+      - mvn clean package -Dnative -DskipTests 
 cache:
   paths: 
     - '/root/.m2/**/*'
