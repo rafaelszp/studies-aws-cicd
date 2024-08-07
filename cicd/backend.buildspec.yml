@@ -18,6 +18,6 @@ cache:
 
 artifacts:
   files: 
-    - backend/target
+    - backend/target/**/*
   discard-paths: no
   name: backend-$(date +%Y-%m-%d) 
