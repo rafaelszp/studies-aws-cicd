@@ -212,14 +212,21 @@ resource "aws_codebuild_project" "codebuild_vite_deploy" {
 
   source {
     type = "CODEPIPELINE"
-    buildspec = "../../github.com/${var.github_owner}/${var.github_repository}/cicd/deploy-to-s3.buildspec.yml"
+    # buildspec = "../../github.com/${var.github_owner}/${var.github_repository}/cicd/deploy-to-s3.buildspec.yml"
+    buildspec = "cicd/deploy-to-s3.buildspec.yml"
   }
 
-  secondary_sources {
-    type = "GITHUB" 
-    location = "https://github.com/${var.github_owner}/${var.github_repository}"
-    source_identifier = "GITHUB_SRC"
-  }
+  # secondary_sources {
+  #   type = "GITHUB" 
+  #   location = "https://github.com/${var.github_owner}/${var.github_repository}"
+  #   source_identifier = "GITHUB_SRC"
+  # }
+
+  # secondary_sources {
+  #   type = "S3" 
+  #   location = "${aws_s3_bucket.bucket_cicd.name}/"
+  #   source_identifier = "S3_BACKEND_OUTPUT"
+  # }
 
   tags = {
     TFName     = "codebuild_vite_deploy"

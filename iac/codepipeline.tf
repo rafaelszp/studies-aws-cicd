@@ -84,16 +84,16 @@ resource "aws_codepipeline" "pipeline_vite_example" {
     name = "Deploy"
 
     action {
-      name = "DeployToS3"
+      name = "Deploy"
       category = "Build"
       owner = "AWS"
       provider = "CodeBuild"
       version = "1"
-      input_artifacts = ["frontend_build_output","backend_build_output"]
+      input_artifacts = ["frontend_build_output","backend_build_output","source_output"]
       output_artifacts = ["deploy_to_s3_output"]
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_vite_deploy.name
-        PrimarySource = "Source"
+        PrimarySource = "source_output"
         EnvironmentVariables = jsonencode([
           {
             name = "GITHUB_COMMIT_ID"

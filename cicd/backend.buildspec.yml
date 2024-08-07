@@ -4,6 +4,8 @@ phases:
     runtime-versions:
       java: corretto21
     commands: 
+      - printenv
+      - ls -la
       - export MAVEN_OPTS=-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
       - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $REPOSITORY_DOMAIN --domain-owner $REPOSITORY_OWNER --region $REPOSITORY_REGION --query authorizationToken --output text`
       - cp backend/settings.xml /root/.m2/settings.xml
