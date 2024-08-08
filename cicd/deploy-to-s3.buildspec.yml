@@ -19,8 +19,10 @@ phases:
         export BACKEND_IMAGE_TAG="$BACKEND_REPOSITORY_URL:$GITHUB_BRANCH_NAME" 
         echo "Building tag $BACKEND_IMAGE_TAG"
         docker build --tag $BACKEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR/backend/src/main/docker/Dockerfile.native $CODEBUILD_SRC_DIR_backend_build_output/backend
+        docker push $BACKEND_IMAGE_TAG
 
   pre_build:
     commands:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_LOGIN_URL
       - docker pull $FRONTEND_REPOSITORY_URL:$GITHUB_BRANCH_NAME || true
+      - docker pull $BACKEND_REPOSITORY_URL:$GITHUB_BRANCH_NAME || true
