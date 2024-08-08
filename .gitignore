@@ -5,3 +5,4 @@ out
 iac/*.tfstate
 iac/*.tfstate*
 iac/.terraform/providers
+.env
