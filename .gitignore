@@ -2,7 +2,7 @@ frontend/dist
 out
 *.log
 *.tfvars
-iac/*.tfstate
-iac/*.tfstate*
-iac/.terraform/providers
+**/*.tfstate
+**/*.tfstate*
+**/.terraform/providers
 .env
