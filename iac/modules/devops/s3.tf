@@ -1,7 +1,3 @@
-locals {
-  name = "${var.department}-${var.project-name}"
-}
-
 resource "aws_s3_bucket" "bucket-devops" {
 
   bucket = local.name
