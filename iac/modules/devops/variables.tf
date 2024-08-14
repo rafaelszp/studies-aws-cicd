@@ -40,5 +40,30 @@ variable "codebuild-variables"{
 variable "retention-days" {
   type = number
 }
-  
+
+variable "repository-type" {
+  type = string
+  description = "Ex.: maven, npm" 
+}
+
+variable "repository-external-connection-name" {
+  type = string
+  description = "public:npmjs, public:maven-central"
+}
+
+variable "build-timeout" {
+  type = number
+}
+
+variable "deploy-timeout" {
+  type = number
+  default = 5
+}
+
+variable "buildspec-file" {
+  type = string
+}
+
+variable "deployspec-file" {
+  type = string
 }

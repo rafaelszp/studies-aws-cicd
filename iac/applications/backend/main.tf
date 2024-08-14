@@ -5,4 +5,10 @@ module "devops" {
   project-name = "home-backend"
   codebuild-variables = []
   github-token = var.github-token
+  repository-type = var.repository-type
+  retention-days = var.retention-days
+  repository-external-connection-name = var.repository-external-connection-name
+  build-timeout = 10
+  buildspec-file =  "../../../cicd/backend.buildspec.yml"
+  deployspec-file = "../../../cicid/deploy.backend.buildspec.yml"
 }
