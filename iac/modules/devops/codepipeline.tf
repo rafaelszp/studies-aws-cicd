@@ -7,7 +7,7 @@ locals {
 
 resource "aws_codestarconnections_connection" "codestar-github" {
   provider_type = "GitHub" 
-  name = "${local.name}-codestar"
+  name = "${var.project-name}-codestar"
 }
 
 
