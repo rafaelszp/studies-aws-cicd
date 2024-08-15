@@ -2,9 +2,7 @@
 
 
 ## TODO
-2. corrigir buildspec do deploy
-2.1 acrescentar deploy pro ECR da imagem java que deve ser construída
-3. Criar novo projeto java + quarkus + codeartifact  + ecr + parallel actions
+1. corrigir buildspec do build do backend
 
 
 ## Destroying
