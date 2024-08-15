@@ -67,3 +67,40 @@ variable "buildspec-file" {
 variable "deployspec-file" {
   type = string
 }
+
+variable "github-owner" {
+  type = string
+}
+
+variable "github-repository" {
+  type = string
+}
+
+variable "github-branch" {
+  type = string
+}
+
+variable "pipeline-file-includes" {
+  type = list(string)
+  description = "List of file-paths to watch modifications in the source of the pipeline"
+  nullable = false
+}
+
+variable "pipeline-file-excludes" {
+  type = list(string)
+  description = "List of file-paths to ignore modifications in the source of the pipeline"
+  default = null
+  nullable = true
+}
+
+variable "pipeline-branch-includes" {
+ type = list(string)
+  description = "List of branches to watch modifications in the source of the pipeline"
+  default = [ "master", "main","release-*" ]
+}
+
+variable "pipeline-branch-excludes" {
+ type = list(string)
+  description = "List of branches to ignore modifications in the source of the pipeline"
+  default = [ "dev-*", "staging-*" ]
+}

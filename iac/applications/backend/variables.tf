@@ -15,3 +15,14 @@ variable "repository-type" {
   type = string
   default = "maven"
 }
+variable "github-owner" {
+  type = string
+}
+
+variable "github-repository" {
+  type = string
+}
+
+variable "github-branch" {
+  type = string
+}

@@ -11,4 +11,8 @@ module "devops" {
   build-timeout = 10
   buildspec-file =  "../../../cicd/backend.buildspec.yml"
   deployspec-file = "../../../cicid/deploy.backend.buildspec.yml"
+  pipeline-file-includes = ["backend/**/*","backend/*"]
+  github-owner = var.github-owner
+  github-repository = var.github-repository
+  github-branch = var.github-branch
 }
