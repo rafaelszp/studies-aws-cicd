@@ -60,7 +60,7 @@ resource "aws_codepipeline" "pipeline-project" {
     name = "Build"
 
     action {
-      name = "${local.name}-BUILD"
+      name = "BUILD"
       category = "Build"
       owner = "AWS"
       provider = "CodeBuild"
