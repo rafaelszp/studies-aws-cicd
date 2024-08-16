@@ -8,10 +8,12 @@ phases:
   build: 
     commands:
       - pwd
+      - printenv
       - |
-        export BACKEND_IMAGE_TAG="$BACKEND_REPOSITORY_URL:$GITHUB_BRANCH_NAME" 
-        echo "Building tag $BACKEND_IMAGE_TAG"
-        docker build --tag $BACKEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR/backend/src/main/docker/Dockerfile.native $CODEBUILD_SRC_DIR_backend_build_output/backend
+        export BACKEND_IMAGE_TAG="$REPOSITORY_URL:$GITHUB_BRANCH_NAME" 
+        export BACKEND_BUILD_HOME=echo $(printenv -0 "CODEBUILD_SRC_DIR_$BUILD_OUTPUT_NAME")
+        echo "Building tag $BACKEND_IMAGE_TAG with $BACKEND_BUILD_HOME"
+        docker build --tag $BACKEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR/backend/src/main/docker/Dockerfile.native $BACKEND_BUILD_HOME/backend
         docker push $BACKEND_IMAGE_TAG
 
   pre_build:

@@ -97,6 +97,16 @@ resource "aws_codepipeline" "pipeline-project" {
             name = "GITHUB_BRANCH_NAME"
             value =  "#{SourceVariables.BranchName}"
             type = "PLAINTEXT"
+          },
+          {
+            name = "BUILD_OUTPUT_NAME"
+            type = "PLAINTEXT"
+            value = "${local.build_output}"
+          },
+          {
+            name = "DEPLOY_OUTPUT_NAME"
+            type = "PLAINTEXT"
+            value = "${local.deploy_output}"
           }
         ])
       }
