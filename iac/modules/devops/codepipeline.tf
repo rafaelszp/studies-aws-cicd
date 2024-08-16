@@ -1,7 +1,7 @@
 locals {
-  source_output = "${var.department}-${var.project-name}-source_output"
-  build_output = "${var.department}-${var.project-name}-build_output"
-  deploy_output = "${var.department}-${var.project-name}-deploy_output"
+  source_output = replace("${var.department}_${var.project-name}_source_output", "-", "_")
+  build_output = replace("${var.department}_${var.project-name}_build_output", "-", "_")
+  deploy_output = replace("${var.department}_${var.project-name}_deploy_output", "-", "_")
 }
 
 
