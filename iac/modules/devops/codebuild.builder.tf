@@ -69,7 +69,7 @@ resource "aws_codebuild_project" "codebuild-builder" {
 
     environment_variable {
       name = "REPOSITORY_URL"
-      value = "${local.repository-name}"
+      value = "https://${local.repository-name}"
     }
 
     environment_variable {
