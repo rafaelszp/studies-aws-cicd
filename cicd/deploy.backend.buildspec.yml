@@ -9,8 +9,7 @@ phases:
       - pwd
       - printenv
       - |
-        cat /root/.docker/config.json
-        export BACKEND_IMAGE_TAG="$ECR_REPOSITORY_URL/$PROJECT_NAME:$GITHUB_BRANCH_NAME" 
+        export BACKEND_IMAGE_TAG="$ECR_REPOSITORY_URL:$GITHUB_BRANCH_NAME-$GITHUB_COMMIT_ID" 
         export BACKEND_BUILD_HOME=`echo $(printenv -0 "CODEBUILD_SRC_DIR_$BUILD_OUTPUT_NAME")`
         echo "Building tag $BACKEND_IMAGE_TAG with $BACKEND_BUILD_HOME"
         docker build --tag $BACKEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR/backend/src/main/docker/Dockerfile.native $BACKEND_BUILD_HOME/backend
@@ -19,4 +18,4 @@ phases:
   pre_build:
     commands:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_LOGIN_URL
-      - docker pull $ECR_REPOSITORY_URL/$PROJECT_NAME:$GITHUB_BRANCH_NAME || true
+      - docker pull $ECR_REPOSITORY_URL:$GITHUB_BRANCH_NAME-$GITHUB_COMMIT_ID || true
