@@ -73,6 +73,11 @@ resource "aws_codebuild_project" "codebuild-builder" {
     }
 
     environment_variable {
+      name = "ECR_REPOSITORY_URL"
+      value = "${local.repository-name}"
+    }
+
+    environment_variable {
       name = "REPOSITORY_NAME"
       value = "${aws_codeartifact_repository.artifact-repo.repository}"
     }

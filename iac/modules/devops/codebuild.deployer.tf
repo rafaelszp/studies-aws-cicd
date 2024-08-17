@@ -53,8 +53,8 @@ resource "aws_codebuild_project" "codebuild-deployer" {
       value = "${local.name}"
     }
     environment_variable {
-      name = "REPOSITORY_URL"
-      value = "https://${local.repository-name}"
+      name = "ECR_REPOSITORY_URL"
+      value = "${aws_ecr_repository.ecr-repo.repository_uri}"
     }
 
     environment_variable {
