@@ -132,3 +132,17 @@ variable "pipeline-branch-excludes" {
   description = "List of branches to ignore modifications in the source of the pipeline"
   default = [ "dev-*", "staging-*" ]
 }
+
+variable "ecr-tags-to-cycle" {
+  type = list(string)
+  description = "List of tags to cycle in the ECR repository"
+  default = ["main-", "feature-"]
+}
+
+variable "application-secret"{
+  type = object({
+    name = string
+    value = string
+    description = string
+  })
+}

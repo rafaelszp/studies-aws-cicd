@@ -26,3 +26,11 @@ variable "github-repository" {
 variable "github-branch" {
   type = string
 }
+
+variable "application-secret"{
+  type = object({
+    name = string
+    value = string
+    description = string
+  })
+}

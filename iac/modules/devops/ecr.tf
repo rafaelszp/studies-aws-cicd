@@ -12,7 +12,7 @@ resource "aws_ecr_lifecycle_policy" "ecr-lifecycle" {
   policy = jsonencode({
     rules = [
       {
-        rulePriority = 1
+        rulePriority = 2
         description = "Expire images older than 14 days"
         selection = {
           tagStatus = "untagged"
@@ -25,11 +25,11 @@ resource "aws_ecr_lifecycle_policy" "ecr-lifecycle" {
         }
       },
       {
-        rulePriority = 2
+        rulePriority = 1
         description = "Expire images older than 30 days with tag main-* or feature-*"
         selection = {
           tagStatus = "tagged"
-          tagPrefixList = ["main-", "feature-"]
+          tagPrefixList = var.ecr-tags-to-cycle
           countType = "sinceImagePushed"
           countUnit = "days"
           countNumber = 30
@@ -38,7 +38,6 @@ resource "aws_ecr_lifecycle_policy" "ecr-lifecycle" {
           type = "expire"
         }
       }
-      
     ]
   })
   

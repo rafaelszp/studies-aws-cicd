@@ -114,7 +114,7 @@ resource "aws_codepipeline" "pipeline-project" {
   }
 
   tags = {
-    TFName     = "${local.name}-pipiline"
+    TFName     = "${local.name}-pipeline"
     Department = "${var.department}"
     Application = "${var.project-name}"
   }

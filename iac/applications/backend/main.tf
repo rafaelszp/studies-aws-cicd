@@ -15,4 +15,5 @@ module "devops" {
   github-owner = var.github-owner
   github-repository = var.github-repository
   github-branch = var.github-branch
+  application-secret = var.application-secret
 }
