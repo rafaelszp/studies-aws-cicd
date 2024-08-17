@@ -2,8 +2,7 @@
 
 
 ## TODO
-1. corrigir buildspec do build do backend
-
+1. Integrar o parameter na imagem ECR como exemplo
 
 ## Destroying
 
