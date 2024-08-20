@@ -1,4 +1,7 @@
 version: 0.2
+env: 
+  parameter-store:
+    APPLICATION_PROPERTIES="$APPLICATION_PROPERTIES"
 phases: 
   install: 
     commands: 
@@ -12,6 +15,7 @@ phases:
         export BACKEND_IMAGE_TAG="$ECR_REPOSITORY_URL:$GITHUB_BRANCH_NAME-$GITHUB_COMMIT_ID" 
         export BACKEND_BUILD_HOME=`echo $(printenv -0 "CODEBUILD_SRC_DIR_$BUILD_OUTPUT_NAME")`
         echo "Building tag $BACKEND_IMAGE_TAG with $BACKEND_BUILD_HOME"
+        echo "$APPLICATION_PROPERTIES" >> $BACKEND_BUILD_HOME/backend/src/main/resources/application.properties"
         docker build --tag $BACKEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR/backend/src/main/docker/Dockerfile.native $BACKEND_BUILD_HOME/backend
         docker push $BACKEND_IMAGE_TAG
 

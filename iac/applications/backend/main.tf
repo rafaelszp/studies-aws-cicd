@@ -3,7 +3,6 @@ module "devops" {
   department = "communication"
   region = "us-east-2"
   project-name = "home-backend"
-  codebuild-variables = []
   github-token = var.github-token
   repository-type = var.repository-type
   retention-days = var.retention-days
@@ -16,4 +15,10 @@ module "devops" {
   github-repository = var.github-repository
   github-branch = var.github-branch
   application-secret = var.application-secret
+  codebuild-variables = [
+    {
+      name = var.application-secret.name
+      value = var.application-secret.value
+    }
+  ]
 }

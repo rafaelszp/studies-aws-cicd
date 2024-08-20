@@ -149,4 +149,15 @@ data "aws_iam_policy_document" "codebuild-policy" {
     ]
   }
 
+  statement {
+    effect = "Allow"
+    sid = "AllowCodeBuildToReadSSM"
+    actions = [
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath",
+    ]
+    resources = [
+      "${aws_ssm_parameter.secret.arn}"
+    ]
+  }
 }
