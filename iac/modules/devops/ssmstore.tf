@@ -3,6 +3,7 @@ resource "aws_ssm_parameter" "secret" {
   description = var.application-secret.description
   type        = "SecureString"
   value       = var.application-secret.value
+  overwrite = true
 
   tags = {
     environment = "production"
