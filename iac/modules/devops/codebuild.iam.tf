@@ -157,7 +157,8 @@ data "aws_iam_policy_document" "codebuild-policy" {
       "ssm:GetParametersByPath",
     ]
     resources = [
-      "${aws_ssm_parameter.secret.arn}"
+      "${aws_ssm_parameter.secret.arn}",
+      "arn:aws:ssm:${data.aws_region.region.name}:${data.aws_caller_identity.current_caller_id.account_id}:*"
     ]
   }
 }

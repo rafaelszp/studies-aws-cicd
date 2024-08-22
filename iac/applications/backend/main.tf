@@ -17,8 +17,8 @@ module "devops" {
   application-secret = var.application-secret
   codebuild-variables = [
     {
-      name = var.application-secret.name
-      value = var.application-secret.value
+      name = "APPLICATION_PROPERTIES"
+      value = var.application-secret.name
     }
   ]
 }
