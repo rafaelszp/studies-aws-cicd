@@ -3,6 +3,7 @@
 
 ## TODO
 1. Integrar o parameter na imagem ECR como exemplo
+2. migrar state backend para remoto
 
 ## Destroying
 
@@ -13,4 +14,3 @@ terraform destroy -auto-approve
 
 ## References
 1. https://github.com/Abdel-Raouf/terraform-aws-codepipeline-ci-cd
-
