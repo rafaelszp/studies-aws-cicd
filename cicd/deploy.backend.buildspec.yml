@@ -1,7 +1,7 @@
 version: 0.2
 env: 
   parameter-store:
-    APPLICATION_PROPERTIES="$APPLICATION_PROPERTIES"
+    APPLICATION_PROPERTIES: "$APPLICATION_PROPERTIES"
 phases: 
   install: 
     commands: 
