@@ -15,10 +15,5 @@ module "devops" {
   github-repository = var.github-repository
   github-branch = var.github-branch
   application-secret = var.application-secret
-  codebuild-variables = [
-    {
-      name = "APPLICATION_PROPERTIES"
-      value = var.application-secret.name
-    }
-  ]
+  codebuild-variables = []
 }
