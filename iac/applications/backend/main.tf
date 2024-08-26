@@ -11,6 +11,7 @@ module "devops" {
   buildspec-file =  "cicd/backend.buildspec.yml"
   deployspec-file = "cicd/deploy.backend.buildspec.yml"
   pipeline-file-includes = ["backend/**/*","backend/*"]
+  pipeline-branch-excludes = ["iac/**/*","iac/*","iac_standalone/**/*","iac_standalone/*"]
   github-owner = var.github-owner
   github-repository = var.github-repository
   github-branch = var.github-branch

@@ -22,8 +22,8 @@ RUN chown 1001 /work \
     && chown 1001:root /work
 COPY --chown=1001:root target/*-runner /work/application
 
-RUN mkdir -p /work/config
-RUN echo "${APPLICATION_PROPERTIES}" >> /work/config/application.properties
+RUN mkdir -p /work/config \
+    && echo "${APPLICATION_PROPERTIES}" >> /work/config/application.properties
 
 EXPOSE 8080
 USER 1001
