@@ -15,6 +15,7 @@
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.9
+ARG APPLICATION_PROPERTIES=""
 WORKDIR /work/
 RUN chown 1001 /work \
     && chmod "g+rwX" /work \
@@ -22,7 +23,7 @@ RUN chown 1001 /work \
 COPY --chown=1001:root target/*-runner /work/application
 
 RUN mkdir -p /work/config
-ADD application.properties /work/config/application.properties
+RUN echo "${APPLICATION_PROPERTIES}" >> /work/config/application.properties
 
 EXPOSE 8080
 USER 1001
