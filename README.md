@@ -14,3 +14,5 @@ terraform destroy -auto-approve
 
 ## References
 1. https://github.com/Abdel-Raouf/terraform-aws-codepipeline-ci-cd
+2. https://medium.com/@olayinkasamuel44/using-terraform-and-fargate-to-create-amazons-ecs-e3308c1b9166
+2.1. https://github.com/Samuelking011/Fargate-ecs-terraform
