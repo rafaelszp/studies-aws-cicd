@@ -15,7 +15,7 @@ variable "vpc_id" {
 
 variable "apps" {
   description = "The list of applications that will be deployed."
-  type = list(object({
+  type = map(object({
     name = string
     port = number
     health_check_path = string

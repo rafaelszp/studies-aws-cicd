@@ -1,14 +1,14 @@
 resource "aws_alb" "alb" {
   name            = local.name
-  subnets         = data.aws_subnet.public[*].id
+  subnets         = [for subnet in data.aws_subnet.public : subnet.id]
   security_groups = [aws_security_group.sg_alb.id]
 }
 
 
 resource "aws_alb_target_group" "target_group" {
-  for_each = toset(var.apps)
+  for_each = var.apps
 
-  name        = "${local.name}-${each.value.name}-tg"
+  name        = each.key
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -28,23 +28,23 @@ resource "aws_alb_target_group" "target_group" {
 }
 
 resource "aws_alb_listener" "listener" {
-  for_each          = toset(var.apps)
+  for_each          = var.apps
   load_balancer_arn = aws_alb.alb.arn
   port              = each.value.port
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.target_group.arn
+    target_group_arn = aws_alb_target_group.target_group[each.key].arn
   }
 }
 
 resource "aws_alb_listener_rule" "rule" {
-  for_each     = toset(var.apps)
-  listener_arn = aws_alb_listener.listener[each.value.name].arn
+  for_each     = var.apps
+  listener_arn = aws_alb_listener.listener[each.key].arn
   priority = 100
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.target_group[each.value.name].arn
+    target_group_arn = aws_alb_target_group.target_group[each.key].arn
   }
   condition {
     path_pattern {
