@@ -5,4 +5,5 @@ out
 **/*.tfstate
 **/*.tfstate*
 **/.terraform/providers
+**/backend.conf
 .env

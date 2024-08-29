@@ -5,14 +5,9 @@ terraform {
       version = "~>5.58"
     }
   }
-  backend "s3" {
-    bucket = "${var.state_bucket}"
-    key = "example-01/terraform.tfstate"
-    dynamodb_table = "${var.state_table}"
-    region = "${variable.region}"
-  }
+  backend "s3" {}
 }
 
 provider "aws" {
-  region = "${variable.region}"
+  region = "us-east-2"
 }

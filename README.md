@@ -5,6 +5,12 @@
 1. Integrar o parameter na imagem ECR como exemplo
 2. migrar state backend para remoto
 
+
+## Initializing project with remote backend
+```shell
+terraform init -backend-config=backend.conf
+```
+
 ## Destroying
 
 ```shell

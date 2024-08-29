@@ -17,7 +17,7 @@ resource "aws_alb_target_group" "target_group" {
   health_check {
     path                = each.value.health_check_path
     protocol            = "HTTP"
-    port                = var.frontend_port
+    port                = each.value.port
     interval            = 5
     timeout             = 3
     matcher             = "200,201"
@@ -66,12 +66,5 @@ resource "aws_security_group" "sg_alb" {
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     }
-  }
-
-  egress = {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 }
