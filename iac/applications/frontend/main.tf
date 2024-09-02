@@ -1,0 +1,20 @@
+module "devops" {
+  source = "../../modules/devops"
+  region = "us-west-2"
+  department = "communication"
+  project-name = "home-frontend"
+  github-token = ""
+  repository-type = var.repository-type
+  retention-days = var.retention-days
+  repository-external-connection-name = var.repository-external-connection-name
+  build-timeout = 10
+  buildspec-file =  "cicd/frontend.buildspec.yml"
+  deployspec-file = "cicd/deploy.frontend.buildspec.yml"
+  pipeline-file-includes = ["frontend/**/*","frontend/*"]
+  pipeline-branch-excludes = ["iac/**/*","iac/*","iac_standalone/**/*","iac_standalone/*"]
+  github-owner = var.github-owner
+  github-repository = var.github-repository
+  github-branch = var.github-branch
+  application-secret = var.application-secret
+  codebuild-variables = []
+}
