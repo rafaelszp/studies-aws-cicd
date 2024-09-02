@@ -146,3 +146,7 @@ variable "application-secret"{
     description = string
   })
 }
+
+variable "ecs-cluster-id" {
+  type = string
+}

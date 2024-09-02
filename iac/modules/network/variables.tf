@@ -20,5 +20,11 @@ variable "apps" {
     port = number
     health_check_path = string
     context_path = string
+    desired_count = number
+    launch_type = string
+    image = string
+    cpu = number #int millicores units
+    memory = number #int MiB units
   }))
 }
+
