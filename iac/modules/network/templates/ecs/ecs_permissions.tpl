@@ -31,7 +31,7 @@
                 "ssm:GetParameters",
                 "secretsmanager:GetSecretValue"
             ],
-            "Resource": ${ssm_secrets_arm}
+            "Resource": ${ssm_secrets_arns}
            
         }
     ]

@@ -2,6 +2,11 @@
 
 
 ## TODO
+0. Preparar para modulo network 
+  - cloudwatch + ecs task
+  - associar ecs task role 
+  - mapear permissões do code artifact (testar se IAM se aplica a recursos inexistentes)
+
 1. preparar usuario de shell para executar comandos de criação de ecs
   - IAM
   - script de criação

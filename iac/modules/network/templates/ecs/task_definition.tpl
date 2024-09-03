@@ -18,6 +18,22 @@
         "containerPort": ${app_port},
         "hostPort": ${app_port}
       }
-    ]
+    ],
+    "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:${app_port}${app_health_check_path}"
+        ],
+        "interval": 5,
+        "timeout": 3,
+        "retries": 3,
+        "startPeriod": ${app_start_delay}
+    },
+    "restartPolicy": {
+      "enabled": true,
+      "restartAttemptPeriod": ${app_restart_delay}
+    }
+    
   }
+  
 ]

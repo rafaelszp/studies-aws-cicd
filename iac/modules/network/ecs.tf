@@ -13,6 +13,9 @@ data "template_file" "task_template" {
     app_memory = each.value.memory
     aws_region = data.aws_region.current.name
     app_port = each.value.port
+    app_health_check_path = each.value.health_check_path
+    app_start_delay = each.value.start_delay
+    app_restart_delay = sum([each.value.start_delay, 60])
   }
 }
 
