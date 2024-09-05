@@ -29,3 +29,13 @@ variable "apps" {
   }))
 }
 
+variable "retention_days" {
+  description = "The number of days to retain the logs."
+  type = number
+}
+
+
+variable "environment_name" {
+  type = string
+  default = "production"  
+}

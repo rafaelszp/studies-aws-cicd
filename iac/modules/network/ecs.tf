@@ -22,12 +22,12 @@ data "template_file" "task_template" {
 resource "aws_ecs_task_definition" "task_definition" {
   for_each = var.apps
   family = "${each.key}-task"
-  execution_role_arn = ""
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu = each.value.cpu
   memory = each.value.memory
   container_definitions = data.template_file.task_template[each.key].rendered
+  execution_role_arn = aws_iam_role.ecs_task_role.arn
 }
 
 resource "aws_security_group" "sg_ecs" {

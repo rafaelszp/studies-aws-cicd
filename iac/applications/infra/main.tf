@@ -1,8 +1,9 @@
 module "infrastructure" {
   source       = "../../modules/network"
   department   = "communication"
-  project_name = "example"
+  project_name = "home"
   vpc_id       = var.vpc_id
+  retention_days = 14
   apps = {
     frontend = {
       name              = "frontend"

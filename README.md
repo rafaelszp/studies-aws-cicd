@@ -3,6 +3,7 @@
 
 ## TODO
 0. Preparar para modulo network 
+  - template aceitar array/list como parametro do resource
   - cloudwatch + ecs task
   - associar ecs task role 
   - mapear permissões do code artifact (testar se IAM se aplica a recursos inexistentes)

@@ -6,13 +6,23 @@ data "template_file" "ecs_permissions_template" {
   template = file("${path.module}/templates/ecs/ecs_permissions.tpl")
 
   vars = {
-    ecr_arns = "*" #array
-    ecr_log_group_arns = "*" #array
-    ssm_secrets_arns = "*" #array
+    ecr_arns = local.ecr_arns
+    ecs_log_group_arns = join(",",[for log_group in aws_cloudwatch_log_group.ecs_log : log_group.arn])
+    ssm_secrets_arns = local.ssm_secrets_arns
   }
 }
 
 resource "aws_iam_role" "ecs_task_role" {
   name = "ECSTaskRole"
   assume_role_policy = data.template_file.ecs_task_role_template.rendered  
+}
+
+resource "aws_iam_policy" "ecs_custom_policy" {
+  name = "ECSTaskPolicy"
+  policy = data.template_file.ecs_permissions_template.rendered
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_custom_policy" {
+  role = aws_iam_role.ecs_task_role.name
+  policy_arn = aws_iam_policy.ecs_custom_policy.arn
 }

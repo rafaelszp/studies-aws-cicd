@@ -15,7 +15,7 @@
                 "ecr:GetDownloadUrlForLayer",
                 "ecr:BatchGetImage"
             ],
-            "Resource": ${ecr_arns}
+            "Resource": ${jsonencode(ecr_arns)}
         },
         {
             "Effect": "Allow",
@@ -23,7 +23,7 @@
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": ${ecr_log_group_arns}
+            "Resource": ${split(", ",ecs_log_group_arns)}
         },
         {
             "Effect": "Allow",
@@ -31,8 +31,7 @@
                 "ssm:GetParameters",
                 "secretsmanager:GetSecretValue"
             ],
-            "Resource": ${ssm_secrets_arns}
-           
+            "Resource": ${jsonencode(ssm_secrets_arns)}
         }
     ]
 }
