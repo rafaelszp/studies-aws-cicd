@@ -33,3 +33,4 @@ terraform destroy -auto-approve
 3. https://github.com/Samuelking011/Fargate-ecs-terraform
 4. https://www.mycodingpains.com/step-by-step-ecs-fargate-setup-from-scratch-using-aws-cli/
 5. https://stackoverflow.com/questions/46018883/best-practice-for-updating-aws-ecs-service-tasks
+6. https://developer.hashicorp.com/terraform/language/functions/templatefile#generating-json-or-yaml-from-a-template

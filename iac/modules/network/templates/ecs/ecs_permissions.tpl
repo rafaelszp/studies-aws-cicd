@@ -23,7 +23,7 @@
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": ${split(", ",ecs_log_group_arns)}
+            "Resource": "*"
         },
         {
             "Effect": "Allow",
