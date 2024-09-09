@@ -21,6 +21,12 @@ output "ecs" {
   }
 }
 
+output "log_groups" {
+  value = [for log_group in aws_cloudwatch_log_group.ecs_log : {
+    name = log_group.name
+  }]
+}
+
 output "vpc" {
   value = {
     vpc_id         = data.aws_vpc.vpc.id

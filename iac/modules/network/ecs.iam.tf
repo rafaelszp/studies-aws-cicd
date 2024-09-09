@@ -1,3 +1,6 @@
+locals {
+  array_log_arns = [for log in aws_cloudwatch_log_group.ecs_log : "\"${log.arn}\""]
+}
 data "template_file" "ecs_task_role_template" {
   template = file("${path.module}/templates/ecs/ecs_execution_policy.tpl")
 }
@@ -7,7 +10,7 @@ data "template_file" "ecs_permissions_template" {
 
   vars = {
     ecr_arns = local.ecr_arns
-    ecs_log_group_arns = join(",",[for log_group in aws_cloudwatch_log_group.ecs_log : log_group.arn])
+    ecs_log_group_arns = "[${join(", ",local.array_log_arns)}]"
     ssm_secrets_arns = local.ssm_secrets_arns
   }
 }
