@@ -16,6 +16,8 @@ data "template_file" "task_template" {
     app_health_check_path = each.value.health_check_path
     app_start_delay = each.value.start_delay
     app_restart_delay = sum([each.value.start_delay, 60])
+    app_department = var.department
+    app_project_name =  var.project_name
   }
 }
 

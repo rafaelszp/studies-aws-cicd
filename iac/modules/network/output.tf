@@ -14,11 +14,20 @@ output "ecs" {
     cluster_id   = aws_ecs_cluster.ecs_cluster.id
     services = [for service in aws_ecs_service.ecs_service : {
       name = service.name
+      id = service.id
     }]
     task_definitions = [for task_definition in data.template_file.task_template : {
-      json = task_definition.rendered
+      json = task_definition.rendered      
     }]
   }
+}
+
+output "ecs_task_definitions" {
+  value = [for task_definition in aws_ecs_task_definition.task_definition : {
+    family = task_definition.family
+    arn    = task_definition.arn
+    revision  = task_definition.revision
+  }]
 }
 
 output "log_groups" {
