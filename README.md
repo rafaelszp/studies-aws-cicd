@@ -34,21 +34,14 @@ terraform destroy -auto-approve
 ## Scrap section
 
 Para mapear usuário vou precisar de setar na IAM:
-- [] write/update - taskDefinition
-- [] write/update - service
+- [x] write/update - taskDefinition
+- [x] write/update - service
 
 Também vou precisar de
 - [x] task definition, talvez substituindo o valor da Imagem via sed, de modo dinamico
-- []comando `aws ecs update-task-protection` baseado no register abaixo:
+- []comando `aws ecs update-task-definition` baseado no register abaixo:
   ```shell
-aws ecs register-task-definition \
---family yevi-test-java-appserver \
---cli-input-json file://yevi-test-java-app-taskdefinition.json \
---region us-east-1 \
---profile yevi-test \
---query taskDefinition.taskDefinitionArn \
---output text
-arn:aws:ecs:us-east-1:xxxx:task-definition/yevi-test-java-appserver:1
+aws ecs register-task-definition --cli-input-json file://taskdefinition.json  --output text
 ```
 - [] comando de `aws ecs update-service` configurado. Ver https://docs.aws.amazon.com/cli/latest/reference/ecs/update-service.html com parâmetros `[--task-definition,--desired-count, --capacity-provider-strategy FARGATE_SPOT]
 
