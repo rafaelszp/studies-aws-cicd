@@ -80,6 +80,10 @@ resource "aws_codebuild_project" "codebuild-deployer" {
       name = "ECR_LOGIN_URL"
       value = "${data.aws_caller_identity.current_caller_id.account_id}.dkr.ecr.${data.aws_region.region.name}.amazonaws.com"
     }
+    environment_variable {
+      name = "ECS_TASK_ROLE_ARN"
+      value = "${aws_iam_role.ecs_task_role.arn}"
+    }
   }
 
   logs_config {

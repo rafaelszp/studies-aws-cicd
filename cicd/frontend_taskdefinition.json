@@ -1,33 +1,42 @@
 {
-  "name": "frontend",
-  "family": "!!TASK_FAMILY!!",
-  "image": "!!FRONTEND_IMAGE_TAG!!",
-  "cpu": 256,
-  "memory": 512,
-  "networkMode": "awsvpc",
-  "logConfiguration": {
-    "logDriver": "awslogs",
-    "options": {
-      "awslogs-group": "/aws/ecs/communication/home-frontend",
-      "awslogs-region": "us-east-2",
-      "awslogs-stream-prefix": "ecs"
-    }
-  },
-  "portMappings": [
+  "containerDefinitions": [
     {
-      "containerPort": 3000,
-      "hostPort": 3000
+      "name": "frontend",
+      "cpu": 256,
+      "memory": 512,
+      "networkMode": "awsvpc",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/communication/home-frontend",
+          "awslogs-region": "us-east-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000
+        }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost:3000/index.html"],
+        "interval": 5,
+        "timeout": 3,
+        "retries": 3,
+        "startPeriod": 10
+      },
+      "restartPolicy": {
+        "enabled": true,
+        "restartAttemptPeriod": 70
+      }
     }
   ],
-  "healthCheck": {
-    "command": ["CMD-SHELL", "curl -f http://localhost:3000/index.html"],
-    "interval": 5,
-    "timeout": 3,
-    "retries": 3,
-    "startPeriod": 10
-  },
-  "restartPolicy": {
-    "enabled": true,
-    "restartAttemptPeriod": 70
-  }
+  "family": "!!TASK_FAMILY!!",
+  "taskRoleArn":      "!!ECS_TASK_ROLE_ARN!!",
+  "executionRoleArn": "!!ECS_TASK_ROLE_ARN!!",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512"
 }

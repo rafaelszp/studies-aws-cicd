@@ -1,0 +1,66 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "java-appserver",
+            "image": "849083044424.dkr.ecr.us-east-1.amazonaws.com/yevi-test-ecr-repo/java-app:latest",
+            "cpu": 256,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "SAMPLE_ENVIRONMENT",
+                    "value": "this_is_a_sample"
+                }
+            ],
+
+            "secrets": [
+                {
+                    "name": "DB_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:849083044424:secret:yevi-test-database-details-KOOztg:username::"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:849083044424:secret:yevi-test-database-details-KOOztg:password::"
+                },
+                {
+                    "name": "DB_HOST",
+                    "valueFrom": "yevi-test-database-host"                
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "yevi-test-log",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "java-app-log"
+                }
+            }
+        }
+    ],
+    "family": "yevi-test-java-appserver",
+    "taskRoleArn": "arn:aws:iam::849083044424:role/yevi-test-ecs-task-role",
+    "executionRoleArn": "arn:aws:iam::849083044424:role/yevi-test-ecs-task-role",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "tags": [
+        {
+          "key": "Name",
+          "value": "yevi-test-java-appserver"
+        },
+        {
+            "key":"ENV",
+            "value":"test"
+        }
+    ]
+}

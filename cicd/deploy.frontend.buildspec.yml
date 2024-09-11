@@ -20,6 +20,7 @@ phases:
       - |
         sed -i $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json -e "s|!!FRONTEND_IMAGE_TAG!!|$FRONTEND_IMAGE_TAG|g"
         sed -i $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json -e "s|!!TASK_FAMILY!!|$TASK_FAMILY|g"
+        sed -i $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json -e "s|!!ECS_TASK_ROLE_ARN!!|$ECS_TASK_ROLE_ARN|g"
         cat $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json
         aws ecs register-task-definition --cli-input-json file://$CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json  --output text
         aws ecs update-service --desired-count 1 --capacity-provider-strategy capacityProvider=FARGATE_SPOT,weight=1 --service $SERVICE_NAME --task-definition $TASK_FAMILY
