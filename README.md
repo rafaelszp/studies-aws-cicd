@@ -3,8 +3,10 @@
 
 ## TODO
 
+- [x] construir terraform do frontend com modulo devops
 - [] execução da infrastructure(network)
-- [] construir terraform do frontend com modulo devops
+- [] testar e corrigir erros do frontend+devops
+
 
 ## Initializing project with remote backend
 ```shell
