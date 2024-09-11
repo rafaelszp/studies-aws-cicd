@@ -162,3 +162,22 @@ data "aws_iam_policy_document" "codebuild-policy" {
     ]
   }
 }
+
+data "template_file" "codebuild_ecs_update_template" {
+  template = file("${path.module}/templates/codebuild/codebuild_ecs_update.tpl")
+  vars = {
+    region = data.aws_region.region.name
+    account_id = data.aws_caller_identity.current_caller_id.account_id
+    task_execution_role_name = "${var.department}_ECSTaskRole"
+  }
+}
+
+resource "aws_iam_policy" "codebuild_ecs_update_policy" {
+  name = "${var.department}_CodeBuildECSPolicy"
+  policy = data.template_file.codebuild_ecs_update_template.rendered
+}
+
+resource "aws_iam_role_policy_attachment" "codebuild_ecs_update_policy" {
+  role = aws_iam_role.iam-codebuild-role.name
+  policy_arn = aws_iam_policy.codebuild_ecs_update_policy.arn
+}

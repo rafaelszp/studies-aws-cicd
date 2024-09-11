@@ -42,6 +42,12 @@ Também vou precisar de
 - []comando `aws ecs update-task-definition` baseado no register abaixo:
   ```shell
 aws ecs register-task-definition --cli-input-json file://taskdefinition.json  --output text
+
+
+#capturando ultima task definition
+aws ecs list-task-definitions --family-prefix sample-fargate  --query 'taskDefinitionArns[-1]'
 ```
 - [] comando de `aws ecs update-service` configurado. Ver https://docs.aws.amazon.com/cli/latest/reference/ecs/update-service.html com parâmetros `[--task-definition,--desired-count, --capacity-provider-strategy FARGATE_SPOT]
-
+```
+aws ecs update-service --desired-count 1 --capacity-provider-strategy FARGATE_SPOT --service <SERVICENAME> --task-definition <FAMILY>
+```

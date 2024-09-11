@@ -16,7 +16,7 @@ data "template_file" "ecs_permissions_template" {
 }
 
 resource "aws_iam_role" "ecs_task_role" {
-  name = "ECSTaskRole"
+  name = "${var.department}_ECSTaskRole"
   assume_role_policy = data.template_file.ecs_task_role_template.rendered  
 }
 

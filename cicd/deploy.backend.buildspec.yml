@@ -17,6 +17,11 @@ phases:
         echo "Building tag $BACKEND_IMAGE_TAG with $BACKEND_BUILD_HOME"
         docker build --tag $BACKEND_IMAGE_TAG --build-arg="APPLICATION_PROPERTIES=$APPLICATION_PROPERTIES" -f $CODEBUILD_SRC_DIR/backend/src/main/docker/Dockerfile.native $BACKEND_BUILD_HOME/backend
         docker push $BACKEND_IMAGE_TAG
+      - |
+        sed -i $CODEBUILD_SRC_DIR/cicd/backend_taskdefinition.json -e "s|!!BACKEND_IMAGE_TAG!!|$BACKEND_IMAGE_TAG|g"
+        cat $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json
+        aws ecs register-task-definition --cli-input-json file://$CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json  --output text
+        aws ecs update-service --desired-count 1 --capacity-provider-strategy FARGATE_SPOT --service $SERVICE_NAME --task-definition $TASK_FAMILY
 
   pre_build:
     commands:

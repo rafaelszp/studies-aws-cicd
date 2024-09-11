@@ -1,4 +1,8 @@
 version: 0.2
+env: 
+  variables:
+    SERVICE_NAME: "frontend"
+    TASK_FAMILY: "frontend-task"
 phases: 
   install: 
     commands: 
@@ -13,6 +17,12 @@ phases:
         echo "Building tag $FRONTEND_IMAGE_TAG"
       - docker build --tag $FRONTEND_IMAGE_TAG -f $CODEBUILD_SRC_DIR/frontend/docker/Dockerfile $FRONTEND_BUILD_HOME
       - docker push $FRONTEND_IMAGE_TAG 
+      - |
+        sed -i $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json -e "s|!!FRONTEND_IMAGE_TAG!!|$FRONTEND_IMAGE_TAG|g"
+        cat $CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json
+        aws ecs register-task-definition --cli-input-json file://$CODEBUILD_SRC_DIR/cicd/frontend_taskdefinition.json  --output text
+        aws ecs update-service --desired-count 1 --capacity-provider-strategy FARGATE_SPOT --service $SERVICE_NAME --task-definition $TASK_FAMILY
+
   pre_build:
     commands:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_LOGIN_URL

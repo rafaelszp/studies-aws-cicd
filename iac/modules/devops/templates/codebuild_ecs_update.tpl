@@ -26,7 +26,7 @@
                 "iam:PassRole"
             ],
             "Resource": [
-                "arn:aws:iam::${region}:role/ecsTaskExecutionRole"
+                "arn:aws:iam::${region}:role/${task_execution_role_name}"
             ]
         }
     ]
