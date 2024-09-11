@@ -82,7 +82,7 @@ resource "aws_codebuild_project" "codebuild-deployer" {
     }
     environment_variable {
       name = "ECS_TASK_ROLE_ARN"
-      value = "${aws_iam_role.ecs_task_role.arn}"
+      value = "arn:aws:iam::${data.aws_region.region.name}:role/${var.department}_ECSTaskRole"
     }
   }
 
