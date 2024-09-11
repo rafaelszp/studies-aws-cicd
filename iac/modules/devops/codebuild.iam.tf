@@ -164,7 +164,7 @@ data "aws_iam_policy_document" "codebuild-policy" {
 }
 
 data "template_file" "codebuild_ecs_update_template" {
-  template = file("${path.module}/templates/codebuild/codebuild_ecs_update.tpl")
+  template = file("${path.module}/templates/codebuild_ecs_update.tpl")
   vars = {
     region = data.aws_region.region.name
     account_id = data.aws_caller_identity.current_caller_id.account_id

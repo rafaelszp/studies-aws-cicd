@@ -17,4 +17,5 @@ module "devops" {
   github-branch = var.github-branch
   application-secret = var.application-secret
   codebuild-variables = []
+  ecs-cluster-id = var.ecs-cluster-id
 }
