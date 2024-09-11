@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "image": "!!BACKEND_IMAGE_TAG!!",
+  "family": "!!TASK_FAMILY!!",
   "cpu": 256,
   "memory": 512,
   "networkMode": "awsvpc",

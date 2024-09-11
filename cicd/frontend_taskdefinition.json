@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "family": "!!TASK_FAMILY!!",
   "image": "!!FRONTEND_IMAGE_TAG!!",
   "cpu": 256,
   "memory": 512,
