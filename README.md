@@ -3,12 +3,9 @@
 
 ## TODO
 
-1. preparar usuario de shell para executar comandos de criação de ecs
-  - IAM
-  - script de criação
-2. baseado em 1, criar o TF das políticas e acrescentar o script ao buildspec
-10. migrar state backend para remoto
-
+- [] construir terraform do frontend com
+- [] modulo infrastructure(network)
+- [] modulo devops
 
 ## Initializing project with remote backend
 ```shell
