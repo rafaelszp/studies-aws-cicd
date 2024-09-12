@@ -4,8 +4,10 @@
 ## TODO
 
 - [x] construir terraform do frontend com modulo devops
+- [x] testar e corrigir erros do frontend+devops
+- [] correção das target ports do ALB, atualmente ele está escutando na 3000, mas tem q escutar na 8080
+- [] Correção da porta do nginx no container frontend, deve escutar na 3000
 - [] execução da infrastructure(network)
-- [] testar e corrigir erros do frontend+devops
 
 
 ## Initializing project with remote backend
@@ -38,8 +40,9 @@ Para mapear usuário vou precisar de setar na IAM:
 Também vou precisar de
 - [x] task definition, talvez substituindo o valor da Imagem via sed, de modo dinamico
 - []comando `aws ecs update-task-definition` baseado no register abaixo:
-  ```shell
+```shell
 aws ecs register-task-definition --cli-input-json file://taskdefinition.json  --output text
+```
 
 
 #capturando ultima task definition
