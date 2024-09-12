@@ -82,7 +82,11 @@ resource "aws_codebuild_project" "codebuild-deployer" {
     }
     environment_variable {
       name = "ECS_TASK_ROLE_ARN"
-      value = "arn:aws:iam::${data.aws_region.region.name}:role/${var.department}_ECSTaskRole"
+      value = "arn:aws:iam:${data.aws_caller_identity.current_caller_id.account_id}:role/${var.department}_ECSTaskRole"
+    }
+    environment_variable {
+      name = "ECS_CLUSTER_ID"
+      value = "${var.ecs-cluster-id}"
     }
   }
 
