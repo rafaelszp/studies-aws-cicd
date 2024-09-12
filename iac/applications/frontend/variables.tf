@@ -39,3 +39,7 @@ variable "ecs-cluster-id" {
   type = string  
 }
 
+variable "ecs-service-arn" {
+  type = string
+}
+

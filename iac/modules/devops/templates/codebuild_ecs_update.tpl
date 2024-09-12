@@ -8,7 +8,7 @@
                 "ecs:UpdateService",
                 "ecs:RegisterTaskDefinition"
             ],
-            "Resource": "arn:aws:ecs:${region}:${account_id}:task-definition/*"
+            "Resource": ["arn:aws:ecs:${region}:${account_id}:task-definition/*","${ecs_service_arn}"]
         },
         {
             "Sid": "AllowListTaskDefinition0",
@@ -26,7 +26,7 @@
                 "iam:PassRole"
             ],
             "Resource": [
-                "arn:aws:iam::${region}:role/${task_execution_role_name}"
+                "arn:aws:iam::${account_id}:role/${task_execution_role_name}"
             ]
         }
     ]

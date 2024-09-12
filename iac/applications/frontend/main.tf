@@ -18,4 +18,5 @@ module "devops" {
   application-secret = var.application-secret
   codebuild-variables = []
   ecs-cluster-id = var.ecs-cluster-id
+  ecs-service-arn = var.ecs-service-arn
 }

@@ -169,6 +169,7 @@ data "template_file" "codebuild_ecs_update_template" {
     region = data.aws_region.region.name
     account_id = data.aws_caller_identity.current_caller_id.account_id
     task_execution_role_name = "${var.department}_ECSTaskRole"
+    ecs_service_arn = "${var.ecs-service-arn}"
   }
 }
 
