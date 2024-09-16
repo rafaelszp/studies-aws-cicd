@@ -26,6 +26,8 @@ variable "apps" {
     cpu = number #int millicores units
     memory = number #int MiB units
     start_delay = number #int in seconds
+    default = bool
+    priority = number
   }))
 }
 

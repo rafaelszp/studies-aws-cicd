@@ -1,3 +1,6 @@
+locals {
+  default_app_name = [for key, value in var.apps: key if value.default == true][0]
+}
 resource "aws_alb" "alb" {
   name            = local.name
   subnets         = [for subnet in data.aws_subnet.public : subnet.id]
@@ -9,10 +12,15 @@ resource "aws_alb_target_group" "target_group" {
   for_each = var.apps
 
   name        = each.key
-  port        = 80
+  port        = each.value.port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
+  deregistration_delay = 10
+  stickiness {
+    type = "lb_cookie"
+    cookie_duration = 3600
+  }
 
   health_check {
     path                = each.value.health_check_path
@@ -28,29 +36,30 @@ resource "aws_alb_target_group" "target_group" {
 }
 
 resource "aws_alb_listener" "listener" {
-  for_each          = var.apps
   load_balancer_arn = aws_alb.alb.arn
-  port              = each.value.port
+  port              = 80
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.target_group[each.key].arn
+    target_group_arn = aws_alb_target_group.target_group[local.default_app_name].arn
   }
 }
 
 resource "aws_alb_listener_rule" "rule" {
   for_each     = var.apps
-  listener_arn = aws_alb_listener.listener[each.key].arn
-  priority = 100
+  listener_arn = aws_alb_listener.listener.arn
+  priority = each.value.priority
   action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.target_group[each.key].arn
+
   }
   condition {
     path_pattern {
       values = [each.value.context_path]
     }
   }
+  depends_on = [ aws_alb.alb ]
 }
 
 resource "aws_security_group" "sg_alb" {

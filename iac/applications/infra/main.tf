@@ -6,6 +6,7 @@ module "infrastructure" {
   retention_days = 14
   apps = {
     frontend = {
+      default = true
       name              = "frontend"
       port              = 3000
       health_check_path = "/index.html"
@@ -14,10 +15,12 @@ module "infrastructure" {
       launch_type = "FARGATE"
       image = "public.ecr.aws/nginx/nginx:1.27.1-alpine3.20-perl"
       cpu = 256
-      memory = 512,
+      memory = 512
       start_delay = 10
+      priority = 100
     },
     backend = {
+      default = false
       name              = "backend"
       port              = 8080
       health_check_path = "/api/q/health"
@@ -28,6 +31,7 @@ module "infrastructure" {
       cpu = 256
       memory = 512
       start_delay = 10
+      priority = 110
     }
   }
 }

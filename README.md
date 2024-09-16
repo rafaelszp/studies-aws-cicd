@@ -33,13 +33,19 @@ terraform destroy -auto-approve
 
 ## Scrap section
 
+- [x] corrigir portas nginx
+- [] corrigir portas ALB
+
+
+
+
 Para mapear usuário vou precisar de setar na IAM:
 - [x] write/update - taskDefinition
 - [x] write/update - service
 
 Também vou precisar de
 - [x] task definition, talvez substituindo o valor da Imagem via sed, de modo dinamico
-- []comando `aws ecs update-task-definition` baseado no register abaixo:
+- [x]comando `aws ecs update-task-definition` baseado no register abaixo:
 ```shell
 aws ecs register-task-definition --cli-input-json file://taskdefinition.json  --output text
 ```

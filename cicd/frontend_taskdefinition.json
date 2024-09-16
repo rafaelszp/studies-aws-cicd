@@ -29,7 +29,13 @@
       "restartPolicy": {
         "enabled": true,
         "restartAttemptPeriod": 70
-      }
+      },
+      "environment": [
+        {
+          "name": "NGINX_PORT",
+          "value": "3000"
+        }
+      ]
     }
   ],
   "family": "!!TASK_FAMILY!!",
