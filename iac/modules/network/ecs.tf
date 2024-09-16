@@ -58,7 +58,7 @@ resource "aws_ecs_service" "ecs_service" {
   desired_count   = each.value.desired_count
   launch_type     = each.value.launch_type
   network_configuration {
-    subnets         = [for subnet in data.aws_subnet.public : subnet.id]
+    subnets         = [for subnet in data.aws_subnet.private : subnet.id]
     security_groups  = [aws_security_group.sg_ecs.id]
     # assign_public_ip = var.assign_public_ip
   }
