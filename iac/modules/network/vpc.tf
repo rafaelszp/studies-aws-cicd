@@ -1,6 +1,4 @@
 locals {
-  subnet_id        = [for k, v in data.aws_subnet.private : v.id][0]
-  public_subnet_id = [for k, v in data.aws_subnet.public : v.id][0]
   gateway_vpc_endpoints = {
     "s3" = {
       "service_name"    = "com.amazonaws.${data.aws_region.current.name}.s3",
@@ -105,8 +103,6 @@ resource "aws_vpc_endpoint" "gw_endpoint" {
   service_name = each.value.service_name
   route_table_ids = each.value.route_table_ids
   vpc_endpoint_type = "Gateway"  
-  private_dns_enabled = true
-  security_group_ids = [aws_security_group.sg_vpc_endpoint.id]
   policy = data.template_file.vpc_endpoint_policy.rendered
 }
 
