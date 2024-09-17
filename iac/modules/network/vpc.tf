@@ -66,6 +66,7 @@ data "aws_subnet" "private" {
 resource "aws_security_group" "sg_vpc_endpoint" {
   name   = "${local.name}-vpc-endpoint-sg"
   vpc_id = var.vpc_id
+  description = "Security group for VPC endpoints"
 
   ingress {
     from_port   = 80

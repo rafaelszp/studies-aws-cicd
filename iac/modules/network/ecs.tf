@@ -60,14 +60,13 @@ resource "aws_ecs_service" "ecs_service" {
   for_each = var.apps
   name            = each.key
   cluster         = aws_ecs_cluster.ecs_cluster.id
-  # task_definition = aws_ecs_task_definition.ecs_task_definition.arn
   task_definition = aws_ecs_task_definition.task_definition[each.key].arn
   desired_count   = each.value.desired_count
   launch_type     = each.value.launch_type
   network_configuration {
     subnets         = [for subnet in data.aws_subnet.private : subnet.id]
     security_groups  = [aws_security_group.sg_ecs.id]
-    # assign_public_ip = var.assign_public_ip
+     assign_public_ip = false
   }
   load_balancer {
     target_group_arn = aws_alb_target_group.target_group[each.key].arn

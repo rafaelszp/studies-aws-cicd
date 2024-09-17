@@ -66,6 +66,7 @@ resource "aws_alb_listener_rule" "rule" {
 resource "aws_security_group" "sg_alb" {
   name   = "${local.name}-alb-sg"
   vpc_id = var.vpc_id
+  description = "Security group for ALB"
 
   ingress {
     from_port   = 80
