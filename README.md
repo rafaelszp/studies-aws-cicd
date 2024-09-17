@@ -4,20 +4,26 @@
 ## Restrições
 
 1. Estou utilizando a VPC existente padrão, além disto criei uma private sub com tag `Tier=private`
-2. Preciso ter subnets com tag Tier = [private,public]
-3. NGW será associado à primeira subnet pública, para diminuir custos. Afinal isso é um estudo
+2. Preciso ter subnets e route tables com tag Tier = [private,public]
 3. Ao criar ECS, o serviço está sendo associado a uma Task Definition padrão, isso é ruim pois ao fazer apply, os serviços em execução serão substituídos.
 
 ## TODO
 
+- [] Verificar possibilidade de criar ECS Service somente se não existir
+- [] Autoscaling groups
+- [] ajustar o deploy do backend, com uso de parameter store
+- [] fazer frontend comunicar com backend
+- [] Usar ACM para SSL em vez de 80
+- [] Utilizar service discovery para que a configuração seja dinâmica, em vez de parametrizada direto na aplicação
+
+## Done
 - [x] construir terraform do frontend com modulo devops
 - [x] testar e corrigir erros do frontend+devops
-- [] VPC Endpoints e rotas da rede privada
-- [] correção das target ports do ALB, atualmente ele está escutando na 3000, mas tem q escutar na 8080
-- [] Correção da porta do nginx no container frontend, deve escutar na 3000
-- [] execução da infrastructure(network)
-- [] Verificar possibilidade de criar ECS Service somente se não existir
-- [] Verificar porque CW não está registrando log de execução das Tasks
+- [x] VPC Endpoints e rotas da rede privada
+- [x] correção das target ports do ALB
+- [x] Correção da porta do nginx no container frontend, deve escutar na 3000
+- [x] execução da infrastructure(network)
+- [x] Verificar porque CW não está registrando log de execução das Tasks
 
 
 ## Initializing project with remote backend
@@ -39,6 +45,8 @@ terraform destroy -auto-approve
 4. https://www.mycodingpains.com/step-by-step-ecs-fargate-setup-from-scratch-using-aws-cli/
 5. https://stackoverflow.com/questions/46018883/best-practice-for-updating-aws-ecs-service-tasks
 6. https://developer.hashicorp.com/terraform/language/functions/templatefile#generating-json-or-yaml-from-a-template
+7. https://docs.aws.amazon.com/AmazonECR/latest/userguide/vpc-endpoints.html#ecr-setting-up-s3-gateway
+8. https://github.com/Raketemensch/terraform-aws-fargate/blob/main/vpc_endpoints.tf
 
 
 ## Scrap section

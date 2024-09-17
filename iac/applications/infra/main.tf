@@ -10,7 +10,7 @@ module "infrastructure" {
       name              = "frontend"
       port              = 3000
       health_check_path = "/index.html"
-      context_path      = "/frontend"
+      context_path      = "/"
       desired_count = 0
       launch_type = "FARGATE"
       image = "public.ecr.aws/nginx/nginx:1.27.1-alpine3.20-perl"

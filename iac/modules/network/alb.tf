@@ -67,17 +67,6 @@ resource "aws_security_group" "sg_alb" {
   name   = "${local.name}-alb-sg"
   vpc_id = var.vpc_id
 
-  dynamic "ingress" {
-    for_each = var.apps
-    iterator = app
-    content {
-      from_port   = app.value.port
-      to_port     = app.value.port
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  }
-
   ingress {
     from_port   = 80
     to_port     = 80
