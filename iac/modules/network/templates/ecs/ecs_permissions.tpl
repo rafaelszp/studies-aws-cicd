@@ -21,7 +21,8 @@
             "Effect": "Allow",
             "Action": [
                 "logs:CreateLogStream",
-                "logs:PutLogEvents"
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
             ],
             "Resource": ${ecs_log_group_arns}
         },
@@ -32,6 +33,14 @@
                 "secretsmanager:GetSecretValue"
             ],
             "Resource": ${ssm_secrets_arns}
+        },
+        {
+            "Sid": "AccessToSpecificBucketOnly",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Effect": "Allow",
+            "Resource": ["arn:aws:s3:::prod-${region}-starport-layer-bucket/*"]
         }
     ]
 }

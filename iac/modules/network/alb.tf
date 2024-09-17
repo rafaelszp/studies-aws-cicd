@@ -1,24 +1,25 @@
 locals {
-  default_app_name = [for key, value in var.apps: key if value.default == true][0]
+  default_app_name = [for key, value in var.apps : key if value.default == true][0]
 }
 resource "aws_alb" "alb" {
   name            = local.name
   subnets         = [for subnet in data.aws_subnet.public : subnet.id]
   security_groups = [aws_security_group.sg_alb.id]
+    
 }
 
 
 resource "aws_alb_target_group" "target_group" {
   for_each = var.apps
 
-  name        = each.key
-  port        = each.value.port
-  protocol    = "HTTP"
-  vpc_id      = var.vpc_id
-  target_type = "ip"
+  name                 = each.key
+  port                 = each.value.port
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
+  target_type          = "ip"
   deregistration_delay = 10
   stickiness {
-    type = "lb_cookie"
+    type            = "lb_cookie"
     cookie_duration = 3600
   }
 
@@ -48,7 +49,7 @@ resource "aws_alb_listener" "listener" {
 resource "aws_alb_listener_rule" "rule" {
   for_each     = var.apps
   listener_arn = aws_alb_listener.listener.arn
-  priority = each.value.priority
+  priority     = each.value.priority
   action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.target_group[each.key].arn
@@ -59,7 +60,7 @@ resource "aws_alb_listener_rule" "rule" {
       values = [each.value.context_path]
     }
   }
-  depends_on = [ aws_alb.alb ]
+  depends_on = [aws_alb.alb]
 }
 
 resource "aws_security_group" "sg_alb" {
@@ -76,4 +77,29 @@ resource "aws_security_group" "sg_alb" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
 }

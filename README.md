@@ -1,13 +1,23 @@
 # studies-aws-cicd
 
 
+## Restrições
+
+1. Estou utilizando a VPC existente padrão, além disto criei uma private sub com tag `Tier=private`
+2. Preciso ter subnets com tag Tier = [private,public]
+3. NGW será associado à primeira subnet pública, para diminuir custos. Afinal isso é um estudo
+3. Ao criar ECS, o serviço está sendo associado a uma Task Definition padrão, isso é ruim pois ao fazer apply, os serviços em execução serão substituídos.
+
 ## TODO
 
 - [x] construir terraform do frontend com modulo devops
 - [x] testar e corrigir erros do frontend+devops
+- [] VPC Endpoints e rotas da rede privada
 - [] correção das target ports do ALB, atualmente ele está escutando na 3000, mas tem q escutar na 8080
 - [] Correção da porta do nginx no container frontend, deve escutar na 3000
 - [] execução da infrastructure(network)
+- [] Verificar possibilidade de criar ECS Service somente se não existir
+- [] Verificar porque CW não está registrando log de execução das Tasks
 
 
 ## Initializing project with remote backend
