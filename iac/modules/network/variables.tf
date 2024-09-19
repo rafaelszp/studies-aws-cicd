@@ -28,6 +28,7 @@ variable "apps" {
     start_delay = number #int in seconds
     default = bool
     priority = number
+    revision = number
   }))
 }
 

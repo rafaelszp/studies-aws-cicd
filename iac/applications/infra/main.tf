@@ -18,6 +18,7 @@ module "infrastructure" {
       memory = 512
       start_delay = 10
       priority = 100
+      revision = 14
     },
     backend = {
       default = false
@@ -32,6 +33,7 @@ module "infrastructure" {
       memory = 512
       start_delay = 10
       priority = 110
+      revision = -1
     }
   }
 }

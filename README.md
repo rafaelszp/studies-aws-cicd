@@ -9,12 +9,13 @@
 
 ## TODO
 
-- [] Verificar possibilidade de criar ECS Service somente se não existir
+- [x] Verificar possibilidade de criar ECS Service somente se não existir - consegui :D 
 - [] Autoscaling groups
 - [] ajustar o deploy do backend, com uso de parameter store
 - [] fazer frontend comunicar com backend
 - [] Usar ACM para SSL em vez de 80
 - [] Utilizar service discovery para que a configuração seja dinâmica, em vez de parametrizada direto na aplicação
+- [] executar tfsec para fazer validação e correção de segurança
 
 ## Done
 - [x] construir terraform do frontend com modulo devops

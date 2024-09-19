@@ -21,8 +21,13 @@ data "template_file" "task_template" {
   }
 }
 
+data "aws_ecs_task_definition" "existing_task_definition" {
+  for_each = {for k, v in var.apps : k => v if v.revision >0}
+  task_definition = "${each.key}-task"
+}
+
 resource "aws_ecs_task_definition" "task_definition" {
-  for_each = var.apps
+  for_each = {for k, v in var.apps : k => v if v.revision <1}
   family = "${each.key}-task"
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -60,8 +65,8 @@ resource "aws_ecs_service" "ecs_service" {
   for_each = var.apps
   name            = each.key
   cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.task_definition[each.key].arn
-  desired_count   = each.value.desired_count
+  task_definition = each.value.revision <1 ? aws_ecs_task_definition.task_definition[each.key].arn : data.aws_ecs_task_definition.existing_task_definition[each.key].arn
+  desired_count   = each.value.revision <1 ? each.value.desired_count : 1
   launch_type     = each.value.launch_type
   network_configuration {
     subnets         = [for subnet in data.aws_subnet.private : subnet.id]
