@@ -9,7 +9,9 @@
 
 ## TODO
 
-- [x] Verificar possibilidade de criar ECS Service somente se não existir - consegui :D 
+- [] Verificar no learn.cantrill conceitos de ASG
+  - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-auto-scaling.html
+  - Ec2 docs: https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html
 - [] Autoscaling groups
 - [] ajustar o deploy do backend, com uso de parameter store
 - [] fazer frontend comunicar com backend
@@ -18,6 +20,8 @@
 - [] executar tfsec para fazer validação e correção de segurança
 
 ## Done
+
+- [x] Verificar possibilidade de criar ECS Service somente se não existir - consegui :D 
 - [x] construir terraform do frontend com modulo devops
 - [x] testar e corrigir erros do frontend+devops
 - [x] VPC Endpoints e rotas da rede privada
@@ -25,6 +29,7 @@
 - [x] Correção da porta do nginx no container frontend, deve escutar na 3000
 - [x] execução da infrastructure(network)
 - [x] Verificar porque CW não está registrando log de execução das Tasks
+
 
 
 ## Initializing project with remote backend
