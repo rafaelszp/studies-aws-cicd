@@ -29,6 +29,8 @@ variable "apps" {
     default = bool
     priority = number
     revision = number
+    min_capacity = number
+    max_capacity = number
   }))
 }
 
