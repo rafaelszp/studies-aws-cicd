@@ -53,6 +53,7 @@ terraform destroy -auto-approve
 6. https://developer.hashicorp.com/terraform/language/functions/templatefile#generating-json-or-yaml-from-a-template
 7. https://docs.aws.amazon.com/AmazonECR/latest/userguide/vpc-endpoints.html#ecr-setting-up-s3-gateway
 8. https://github.com/Raketemensch/terraform-aws-fargate/blob/main/vpc_endpoints.tf
+9. https://docs.aws.amazon.com/sdk-for-ruby/v2/api/Aws/AutoScaling/Types/StepAdjustment.html
 
 
 ## Scrap section
