@@ -54,6 +54,7 @@ terraform destroy -auto-approve
 7. https://docs.aws.amazon.com/AmazonECR/latest/userguide/vpc-endpoints.html#ecr-setting-up-s3-gateway
 8. https://github.com/Raketemensch/terraform-aws-fargate/blob/main/vpc_endpoints.tf
 9. https://docs.aws.amazon.com/sdk-for-ruby/v2/api/Aws/AutoScaling/Types/StepAdjustment.html
+10. https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html
 
 
 ## Scrap section
