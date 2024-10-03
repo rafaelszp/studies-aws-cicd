@@ -9,7 +9,7 @@
 
 ## TODO
 
-- [] Verificar no learn.cantrill conceitos de ASG
+- [x] Verificar no learn.cantrill conceitos de ASG
   - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-auto-scaling.html
   - Ec2 docs: https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html
 - [] Autoscaling groups
@@ -55,6 +55,7 @@ terraform destroy -auto-approve
 8. https://github.com/Raketemensch/terraform-aws-fargate/blob/main/vpc_endpoints.tf
 9. https://docs.aws.amazon.com/sdk-for-ruby/v2/api/Aws/AutoScaling/Types/StepAdjustment.html
 10. https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html
+11. https://docs.aws.amazon.com/autoscaling/application/APIReference/API_RegisterScalableTarget.html#API_RegisterScalableTarget_RequestParameters
 
 
 ## Scrap section
